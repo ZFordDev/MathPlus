@@ -1,0 +1,23 @@
+# Rust build output
+/target/
+
+# Cargo metadata
+Cargo.lock
+
+# Backup files
+*.rs.bk
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# IDE / Editor files
+.idea/
+.vscode/
+*.iml
+
+# Windows executables
+*.exe
+
+# Logs
+*.log
