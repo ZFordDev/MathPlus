@@ -1,3 +1,4 @@
+#![windows_subsystem = "windows"]
 use eframe::egui;
 use eframe::{App, Frame};
 use meval::eval_str;

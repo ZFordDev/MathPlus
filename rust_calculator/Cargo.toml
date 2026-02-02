@@ -1,5 +1,5 @@
 [package]
-name = "rust_calculator"
+name = "MathPlus"
 version = "1.0.0"
 edition = "2024"
 
@@ -14,4 +14,3 @@ opt-level = "z"
 [[bin]]
 name = "rust_calculator"
 path = "src/main.rs"
-windows_subsystem = "windows"
