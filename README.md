@@ -15,6 +15,14 @@ It’s not trying to replace anything fancy. It’s just a lightweight tool that
 
 ---
 
+## A simple Rust example you can learn from
+MathPlus is also a good reference project if you're learning Rust or trying out `egui` for the first time.  
+The code is small, well‑commented, and easy to follow — a good starting point for experimenting with GUI apps, state handling, and basic expression evaluation.
+
+Feel free to explore, modify, or use it as a base for your own ideas.
+
+---
+
 ## **What it does**
 - Opens fast and stays out of the way  
 - Handles the standard operations (add, subtract, multiply, divide)  
