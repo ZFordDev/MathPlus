@@ -1,12 +1,10 @@
 [![Website](https://img.shields.io/badge/Website-zford.dev-000000?style=flat-square)](https://zford.dev)
-[![Store](https://img.shields.io/badge/Store-staxdash.com-4CAF50?style=flat-square)](https://staxdash.com)
 [![Ko‑Fi](https://img.shields.io/badge/Support-KoFi-FF5E5B?style=flat-square)](https://ko-fi.com/zforddev)
 [![itch.io](https://img.shields.io/badge/itch.io-MathPlus-FA5C5C?style=flat-square)](https://zforddev.itch.io/mathplus)
 
 ---
 
 # **MathPlus**  
-### **a product of StaxDash | life made simple**
 
 [![Download](https://img.shields.io/badge/Download-Releases-blue)](../../releases)
 ![Platform](https://img.shields.io/badge/Windows-Only-0078D6)
@@ -88,18 +86,10 @@ See `LICENSE` for details.
 
 ---
 
-## **Part of the StaxDash Tool Suite**
-MathPlus is one of the small, practical tools in the StaxDash ecosystem — simple utilities built to make everyday tasks easier without the bloat.
-
----
-
 ## Explore More
 
 [**zford.dev**](https://zford.dev) — the projects that shape the platform.  
 Not everything makes the cut, but everything matters.
-
-[**staxdash.com**](https://staxdash.com) — the storefront for all tools, big and small.  
-Clean, minimal, purpose‑built utilities.
 
 **Ko‑Fi** — support the work and help fuel the dream:  
 https://ko-fi.com/zforddev
