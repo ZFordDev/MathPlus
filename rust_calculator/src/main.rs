@@ -6,12 +6,15 @@ use eframe::egui;
 use eframe::{App, Frame};
 use meval::eval_str;
 
-// The main calculator state.
-// `input` holds the expression the user is typing.
-// `result` stores the last evaluated value.
+mod history;
+mod history_ui;
+use history::History;
+
 struct Calculator {
     input: String,
     result: f64,
+    history: History,
+    show_history: bool,
 }
 
 // Provide a clean default state when the app starts.
@@ -20,6 +23,8 @@ impl Default for Calculator {
         Self {
             input: String::new(),
             result: 0.0,
+            history: History::new(100), // Keep last 100 calculations
+            show_history: false,
         }
     }
 }
@@ -31,19 +36,10 @@ impl App for Calculator {
         egui::CentralPanel::default().show(ctx, |ui| {
             ui.vertical_centered(|ui| {
                 ui.add_space(5.0);
+                ui.label(egui::RichText::new("MATH+").strong().color(egui::Color32::GRAY));
 
-                // Simple title
-                ui.label(
-                    egui::RichText::new("MATH+")
-                        .strong()
-                        .color(egui::Color32::GRAY),
-                );
-
-                // -------------------------------
-                // Display area (input + result)
-                // -------------------------------
-                // `allocate_ui` gives this section a fixed size so the keypad
-                // doesn't move around when numbers get long.
+                // --- FIXED DISPLAY AREA ---
+                // allocate_ui ensures this block doesn't grow and hide the keypad
                 ui.allocate_ui(egui::vec2(260.0, 100.0), |ui| {
                     egui::Frame::canvas(ui.style()).show(ui, |ui| {
                         ui.set_height(100.0);
@@ -52,39 +48,22 @@ impl App for Calculator {
                         ui.vertical(|ui| {
                             ui.add_space(10.0);
 
-                            // Show the current input (right-aligned)
-                            ui.with_layout(
-                                egui::Layout::right_to_left(egui::Align::Center),
-                                |ui| {
-                                    ui.add_space(10.0);
-                                    ui.label(
-                                        egui::RichText::new(&self.input)
-                                            .size(32.0)
-                                            .monospace(),
-                                    );
-                                },
-                            );
+                            // Current Input
+                            ui.with_layout(egui::Layout::right_to_left(egui::Align::Center), |ui| {
+                                ui.add_space(10.0);
+                                ui.label(egui::RichText::new(&self.input).size(32.0).monospace());
+                            });
 
-                            // Show the result (right-aligned)
-                            ui.with_layout(
-                                egui::Layout::right_to_left(egui::Align::Center),
-                                |ui| {
-                                    ui.add_space(10.0);
-
-                                    // If evaluation failed, show "Error"
-                                    let res_text = if self.result.is_nan() {
-                                        "Error".to_string()
-                                    } else {
-                                        format!("= {}", self.result)
-                                    };
-
-                                    ui.label(
-                                        egui::RichText::new(res_text)
-                                            .size(18.0)
-                                            .color(egui::Color32::LIGHT_BLUE),
-                                    );
-                                },
-                            );
+                            // Calculated Result
+                            ui.with_layout(egui::Layout::right_to_left(egui::Align::Center), |ui| {
+                                ui.add_space(10.0);
+                                let res_text = if self.result.is_nan() {
+                                    "Error".to_string()
+                                } else {
+                                    format!("= {}", self.result)
+                                };
+                                ui.label(egui::RichText::new(res_text).size(18.0).color(egui::Color32::LIGHT_BLUE));
+                            });
                         });
                     });
                 });
@@ -122,7 +101,6 @@ impl App for Calculator {
                                                 ui.visuals().widgets.noninteractive.bg_fill,
                                         };
 
-                                        // Build the button
                                         let btn = egui::Button::new(
                                             egui::RichText::new(label)
                                                 .size(20.0)
@@ -131,7 +109,6 @@ impl App for Calculator {
                                         .fill(color)
                                         .min_size(egui::vec2(55.0, 55.0));
 
-                                        // Handle button clicks
                                         if ui.add(btn).clicked() {
                                             match label {
                                                 "C" => {
@@ -170,12 +147,37 @@ impl App for Calculator {
                     || ctx.input(|i| i.key_pressed(egui::Key::Enter))
                 {
                     match eval_str(&self.input) {
-                        Ok(val) => self.result = val,
+                        Ok(val) => {
+                            self.result = val;
+                            self.history.add_calculation(self.input.clone(), val);
+                        }
                         Err(_) => self.result = f64::NAN,
                     }
                 }
+
+                ui.add_space(10.0);
+
+                // --- HISTORY BUTTON ---
+                let history_btn = egui::Button::new(egui::RichText::new("History").size(18.0).strong())
+                    .fill(egui::Color32::from_rgb(100, 100, 100))
+                    .min_size(egui::vec2(250.0, 40.0));
+
+                if ui.add(history_btn).clicked() {
+                    self.show_history = true;
+                }
             });
         });
+
+        // Show history window if requested
+        if self.show_history {
+            let action = crate::history_ui::show_history_window(ctx, &self.history, &mut self.show_history);
+            match action {
+                crate::history_ui::HistoryAction::Clear => {
+                    self.history.clear();
+                }
+                _ => {}
+            }
+        }
     }
 }
 
@@ -183,7 +185,7 @@ fn main() {
     // Basic window options for the app.
     let options = eframe::NativeOptions {
         viewport: egui::ViewportBuilder::default()
-            .with_inner_size([300.0, 520.0]) // Slightly taller for spacing
+            .with_inner_size([300.0, 580.0]) // Increased height to accommodate History button
             .with_resizable(false),
         ..Default::default()
     };
