@@ -8,7 +8,9 @@ use meval::eval_str;
 
 mod history;
 mod history_ui;
+mod shortcuts;
 use history::History;
+use shortcuts::handle_keyboard_shortcuts;
 
 struct Calculator {
     input: String,
@@ -142,10 +144,8 @@ impl App for Calculator {
                 .fill(egui::Color32::from_rgb(70, 130, 180))
                 .min_size(egui::vec2(250.0, 50.0));
 
-                // Evaluate when "=" is clicked or Enter is pressed
-                if ui.add(equals_btn).clicked()
-                    || ctx.input(|i| i.key_pressed(egui::Key::Enter))
-                {
+                // Evaluate when the equals button is clicked.
+                if ui.add(equals_btn).clicked() {
                     match eval_str(&self.input) {
                         Ok(val) => {
                             self.result = val;
@@ -167,6 +167,8 @@ impl App for Calculator {
                 }
             });
         });
+
+        handle_keyboard_shortcuts(ctx, &mut self.input, &mut self.result, &mut self.history, &mut self.show_history);
 
         // Show history window if requested
         if self.show_history {

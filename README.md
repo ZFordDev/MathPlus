@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-# MathPlus  
-### a tiny Rust calculator built to be simple, fast, and distraction‑free
-=======
 [![Website](https://img.shields.io/badge/Website-zford.dev-000000?style=flat-square)](https://zford.dev)
 [![Store](https://img.shields.io/badge/Store-staxdash.com-4CAF50?style=flat-square)](https://staxdash.com)
 [![Ko‑Fi](https://img.shields.io/badge/Support-KoFi-FF5E5B?style=flat-square)](https://ko-fi.com/zforddev)
@@ -11,7 +7,6 @@
 
 # **MathPlus**  
 ### **a product of StaxDash | life made simple**
->>>>>>> a0ba10c2f1bdd31e9fba983916dc8027380f1830
 
 [![Download](https://img.shields.io/badge/Download-Releases-blue)](../../releases)
 ![Platform](https://img.shields.io/badge/Windows-Only-0078D6)
@@ -24,6 +19,8 @@ MathPlus is a small Windows calculator I built while learning Rust.
 It’s intentionally basic for quick math, a clean interface, and nothing running in the background. No ads, no telemetry, no **smart** features. Just a calculator that opens instantly and does its job.
 
 It’s not trying to replace anything fancy. It’s just a lightweight tool that feels nice to use.
+
+Version 1.1.1 introduces full keyboard shortcut support for digits and operator input.
 
 ---
 
@@ -46,7 +43,14 @@ That’s it. Nothing complicated.
 ---
 
 ## **Using MathPlus**
-Just launch it and start typing.  
+Just launch it and start typing.
+
+Keyboard support now works for all digits and operators:
+- `0`–`9`, `.`, `+`, `-`, `*`, `/`
+- `Enter` or `=` evaluates the current expression
+- `Backspace` deletes the last character
+- `Esc` clears the current input
+
 It’s a simple GUI app — no setup, no configuration, no learning curve.
 
 ---
@@ -87,10 +91,6 @@ See `LICENSE` for details.
 ## **Part of the StaxDash Tool Suite**
 MathPlus is one of the small, practical tools in the StaxDash ecosystem — simple utilities built to make everyday tasks easier without the bloat.
 
-<<<<<<< HEAD
-_Learn more at:_
-> [**StaxDash.com**](https://staxdash.com)
-=======
 ---
 
 ## Explore More
@@ -103,6 +103,5 @@ Clean, minimal, purpose‑built utilities.
 
 **Ko‑Fi** — support the work and help fuel the dream:  
 https://ko-fi.com/zforddev
->>>>>>> a0ba10c2f1bdd31e9fba983916dc8027380f1830
 
 ---
