@@ -17,6 +17,7 @@ struct Calculator {
     result: f64,
     history: History,
     show_history: bool,
+    copied_at: Option<std::time::Instant>,
 }
 
 // Provide a clean default state when the app starts.
@@ -27,6 +28,7 @@ impl Default for Calculator {
             result: 0.0,
             history: History::new(100), // Keep last 100 calculations
             show_history: false,
+            copied_at: None,
         }
     }
 }
@@ -38,34 +40,87 @@ impl App for Calculator {
         egui::CentralPanel::default().show(ctx, |ui| {
             ui.vertical_centered(|ui| {
                 ui.add_space(5.0);
-                ui.label(egui::RichText::new("MATH+").strong().color(egui::Color32::GRAY));
+                ui.label(
+                    egui::RichText::new("MATH+")
+                        .strong()
+                        .color(egui::Color32::GRAY),
+                );
 
                 // --- FIXED DISPLAY AREA ---
                 // allocate_ui ensures this block doesn't grow and hide the keypad
                 ui.allocate_ui(egui::vec2(260.0, 100.0), |ui| {
                     egui::Frame::canvas(ui.style()).show(ui, |ui| {
-                        ui.set_height(100.0);
+                        ui.set_height(95.0);
                         ui.set_width(260.0);
 
                         ui.vertical(|ui| {
                             ui.add_space(10.0);
 
                             // Current Input
-                            ui.with_layout(egui::Layout::right_to_left(egui::Align::Center), |ui| {
-                                ui.add_space(10.0);
-                                ui.label(egui::RichText::new(&self.input).size(32.0).monospace());
-                            });
+                            ui.with_layout(
+                                egui::Layout::right_to_left(egui::Align::Center),
+                                |ui| {
+                                    ui.add_space(10.0);
+                                    ui.label(
+                                        egui::RichText::new(&self.input)
+                                            .size(32.0)
+                                            .monospace()
+                                            .color(egui::Color32::from_rgb(232, 232, 238)),
+                                    );
+                                },
+                            );
 
                             // Calculated Result
-                            ui.with_layout(egui::Layout::right_to_left(egui::Align::Center), |ui| {
-                                ui.add_space(10.0);
-                                let res_text = if self.result.is_nan() {
-                                    "Error".to_string()
-                                } else {
-                                    format!("= {}", self.result)
-                                };
-                                ui.label(egui::RichText::new(res_text).size(18.0).color(egui::Color32::LIGHT_BLUE));
-                            });
+                            // Calculated Result
+                            ui.with_layout(
+                                egui::Layout::right_to_left(egui::Align::Center),
+                                |ui| {
+                                    ui.add_space(10.0);
+
+                                    let res_text = if self.result.is_nan() {
+                                        "Error".to_string()
+                                    } else {
+                                        format!("= {}", self.result)
+                                    };
+
+                                    // Show "Copied!" flash or the copy button
+                                    let just_copied = self
+                                        .copied_at
+                                        .map(|t| t.elapsed().as_millis() < 600)
+                                        .unwrap_or(false);
+
+                                    if just_copied {
+                                        ui.label(
+                                            egui::RichText::new("Copied!")
+                                                .size(11.0)
+                                                .color(egui::Color32::from_rgb(160, 157, 232)),
+                                        );
+                                        ctx.request_repaint();
+                                    } else {
+                                        let copy_btn = egui::Button::new(
+                                            egui::RichText::new("📋")
+                                                .size(13.0)
+                                                .color(egui::Color32::from_rgb(110, 110, 120)),
+                                        )
+                                        .fill(egui::Color32::TRANSPARENT)
+                                        .stroke(egui::Stroke::NONE)
+                                        .min_size(egui::vec2(18.0, 18.0));
+
+                                        if ui.add(copy_btn).clicked() {
+                                            ui.output_mut(|o| {
+                                                o.copied_text = self.result.to_string()
+                                            });
+                                            self.copied_at = Some(std::time::Instant::now());
+                                        }
+                                    }
+
+                                    ui.label(
+                                        egui::RichText::new(&res_text)
+                                            .size(18.0)
+                                            .color(egui::Color32::from_rgb(160, 157, 232)),
+                                    );
+                                },
+                            );
                         });
                     });
                 });
@@ -93,33 +148,44 @@ impl App for Calculator {
 
                                 for row in rows {
                                     for &label in row.iter() {
-                                        // Color-code special buttons
-                                        let color = match label {
-                                            "+" | "-" | "*" | "/" =>
-                                                egui::Color32::from_rgb(255, 165, 0),
-                                            "C" =>
-                                                egui::Color32::from_rgb(200, 50, 50),
-                                            _ =>
-                                                ui.visuals().widgets.noninteractive.bg_fill,
+                                        let (fill, text_color) = match label {
+                                            "+" | "-" | "*" | "/" => (
+                                                egui::Color32::from_rgb(37, 37, 53),
+                                                egui::Color32::from_rgb(160, 157, 232),
+                                            ),
+                                            "C" => (
+                                                egui::Color32::from_rgb(46, 28, 28),
+                                                egui::Color32::from_rgb(232, 128, 128),
+                                            ),
+                                            _ => (
+                                                egui::Color32::from_rgb(42, 42, 48),
+                                                egui::Color32::from_rgb(232, 232, 238),
+                                            ),
                                         };
 
                                         let btn = egui::Button::new(
                                             egui::RichText::new(label)
                                                 .size(20.0)
-                                                .strong(),
+                                                .strong()
+                                                .color(text_color),
                                         )
-                                        .fill(color)
+                                        .fill(fill)
+                                        .rounding(egui::Rounding::same(10.0))
+                                        .stroke(egui::Stroke::new(
+                                            0.5,
+                                            egui::Color32::from_rgba_premultiplied(
+                                                255, 255, 255, 10,
+                                            ),
+                                        ))
                                         .min_size(egui::vec2(55.0, 55.0));
 
                                         if ui.add(btn).clicked() {
                                             match label {
                                                 "C" => {
-                                                    // Clear everything
                                                     self.input.clear();
                                                     self.result = 0.0;
                                                 }
                                                 _ => {
-                                                    // Append the pressed character
                                                     self.input.push_str(label);
                                                 }
                                             }
@@ -139,9 +205,11 @@ impl App for Calculator {
                 let equals_btn = egui::Button::new(
                     egui::RichText::new("=")
                         .size(24.0)
-                        .strong(),
+                        .strong()
+                        .color(egui::Color32::from_rgb(212, 210, 247)),
                 )
-                .fill(egui::Color32::from_rgb(70, 130, 180))
+                .fill(egui::Color32::from_rgb(37, 37, 53))
+                .rounding(egui::Rounding::same(12.0))
                 .min_size(egui::vec2(250.0, 50.0));
 
                 // Evaluate when the equals button is clicked.
@@ -158,9 +226,10 @@ impl App for Calculator {
                 ui.add_space(10.0);
 
                 // --- HISTORY BUTTON ---
-                let history_btn = egui::Button::new(egui::RichText::new("History").size(18.0).strong())
-                    .fill(egui::Color32::from_rgb(100, 100, 100))
-                    .min_size(egui::vec2(250.0, 40.0));
+                let history_btn =
+                    egui::Button::new(egui::RichText::new("History").size(18.0).strong())
+                        .fill(egui::Color32::from_rgb(100, 100, 100))
+                        .min_size(egui::vec2(250.0, 35.0));
 
                 if ui.add(history_btn).clicked() {
                     self.show_history = true;
@@ -168,11 +237,19 @@ impl App for Calculator {
             });
         });
 
-        handle_keyboard_shortcuts(ctx, &mut self.input, &mut self.result, &mut self.history, &mut self.show_history);
+        handle_keyboard_shortcuts(
+            ctx,
+            &mut self.input,
+            &mut self.result,
+            &mut self.history,
+            &mut self.show_history,
+            &mut self.copied_at,
+        );
 
         // Show history window if requested
         if self.show_history {
-            let action = crate::history_ui::show_history_window(ctx, &self.history, &mut self.show_history);
+            let action =
+                crate::history_ui::show_history_window(ctx, &self.history, &mut self.show_history);
             match action {
                 crate::history_ui::HistoryAction::Clear => {
                     self.history.clear();
@@ -200,6 +277,6 @@ fn main() {
     );
 }
 
-// Thanks for checking out MathPlus! 
-// If you're learning Rust or building your own project and need a hand, 
+// Thanks for checking out MathPlus!
+// If you're learning Rust or building your own project and need a hand,
 // feel free to reach out I'm always happy to help.
