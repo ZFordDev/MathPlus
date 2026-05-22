@@ -16,5 +16,5 @@ opt-level = "z"    # Optimize for small binary size (good for tiny tools).
 
 # Define the main binary target.
 [[bin]]
-name = "rust_calculator"   # The output executable name.
+name = "MathPlus"          # The output executable name.
 path = "src/main.rs"       # Entry point for the application.
