@@ -1,12 +1,16 @@
-use eframe::egui;
 use crate::history::History;
+use eframe::egui;
 
 pub enum HistoryAction {
     None,
     Clear,
 }
 
-pub fn show_history_window(ctx: &egui::Context, history: &History, show: &mut bool) -> HistoryAction {
+pub fn show_history_window(
+    ctx: &egui::Context,
+    history: &History,
+    show: &mut bool,
+) -> HistoryAction {
     let mut action = HistoryAction::None;
 
     egui::Window::new("Calculation History")
@@ -25,14 +29,20 @@ pub fn show_history_window(ctx: &egui::Context, history: &History, show: &mut bo
                             ui.horizontal(|ui| {
                                 ui.label(format!("{}.", i + 1));
                                 ui.label(&calc.input);
-                                ui.with_layout(egui::Layout::right_to_left(egui::Align::Center), |ui| {
-                                    let result_text = if calc.result.is_nan() {
-                                        "Error".to_string()
-                                    } else {
-                                        format!("= {:.6}", calc.result)
-                                    };
-                                    ui.label(egui::RichText::new(result_text).color(egui::Color32::LIGHT_BLUE));
-                                });
+                                ui.with_layout(
+                                    egui::Layout::right_to_left(egui::Align::Center),
+                                    |ui| {
+                                        let result_text = if calc.result.is_nan() {
+                                            "Error".to_string()
+                                        } else {
+                                            format!("= {:.6}", calc.result)
+                                        };
+                                        ui.label(
+                                            egui::RichText::new(result_text)
+                                                .color(egui::Color32::LIGHT_BLUE),
+                                        );
+                                    },
+                                );
                             });
                             ui.separator();
                         }
