@@ -271,7 +271,7 @@ fn main() {
 
     // Launch the app.
     let _ = eframe::run_native(
-        "Rust Calculator",
+        "MathPlus",
         options,
         Box::new(|_cc| Box::<Calculator>::default()),
     );

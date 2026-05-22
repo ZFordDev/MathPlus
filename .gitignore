@@ -21,6 +21,3 @@ Thumbs.db
 
 # Logs
 *.log
-
-build/
-installer/
