@@ -1,10 +1,11 @@
+
 [![Website](https://img.shields.io/badge/Website-zford.dev-000000?style=flat-square)](https://zford.dev)
 [![Ko‑Fi](https://img.shields.io/badge/Support-KoFi-FF5E5B?style=flat-square)](https://ko-fi.com/zforddev)
 [![itch.io](https://img.shields.io/badge/itch.io-MathPlus-FA5C5C?style=flat-square)](https://zforddev.itch.io/mathplus)
 
 ---
 
-# **MathPlus**  
+# **MathPlus**
 
 [![Download](https://img.shields.io/badge/Download-Releases-blue)](../../releases)
 ![Platform](https://img.shields.io/badge/Windows-Only-0078D6)
@@ -12,13 +13,12 @@
 ![License](https://img.shields.io/badge/License-MIT-green)
 ![Rust](https://img.shields.io/badge/Built%20with-Rust-orange)
 
-
 MathPlus is a small Windows calculator I built while learning Rust.  
 It’s intentionally basic for quick math, a clean interface, and nothing running in the background. No ads, no telemetry, no **smart** features. Just a calculator that opens instantly and does its job.
 
 It’s not trying to replace anything fancy. It’s just a lightweight tool that feels nice to use.
 
-Version 1.1.1 introduces full keyboard shortcut support for digits and operator input.
+**Version 1.2.1 introduces UI improvements, a refined layout, and a new copy‑to‑clipboard feature.**
 
 ---
 
@@ -43,11 +43,12 @@ That’s it. Nothing complicated.
 ## **Using MathPlus**
 Just launch it and start typing.
 
-Keyboard support now works for all digits and operators:
+Keyboard support works for all digits and operators:
 - `0`–`9`, `.`, `+`, `-`, `*`, `/`
 - `Enter` or `=` evaluates the current expression
 - `Backspace` deletes the last character
 - `Esc` clears the current input
+- `Ctrl + C` copies the current result
 
 It’s a simple GUI app — no setup, no configuration, no learning curve.
 
@@ -66,6 +67,24 @@ The installer includes:
   ```
 
 A portable `.exe` is also available if you prefer no install.
+
+> **Note:** The project logo SVG was lost (my fault!), so the installer currently ships without the icon.  
+> A rebuilt SVG and updated installer will return in the next release.
+
+---
+
+## **Contributors**
+MathPlus is a small project, but it’s grown thanks to the help of the community.
+
+### ❤️ Special Thanks
+**@slash-aech** — for the fantastic UI improvements in v1.2.1  
+- refined button styling and layout  
+- improved color palette and rounding  
+- fixed layout clipping  
+- added a proper copy‑to‑clipboard button  
+- implemented `Ctrl + C` support  
+
+Your work genuinely improved the feel of the app — thank you!
 
 ---
 
