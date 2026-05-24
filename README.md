@@ -85,7 +85,13 @@ Your work genuinely improved the feel of the app — thank you!
 **@MD-Mushfiqur123** — for laying the groundwork for future expansion  
 - early foundations for the updater system  
 - initial structure for the scientific calculator add‑on  
-- forward‑thinking contributions that help shape the next phase of MathPlus  
+- forward‑thinking contributions that help shape the next phase of MathPlus
+
+> [!NOTE]
+> MathPlus uses Rust 2024 Edition (Nightly). If your system struggles with compilation, feel free to open an issue
+> — we’re happy to help.
+>
+> ~ ZFordDev & Team
 
 Your contributions set the stage for what comes next.
 
