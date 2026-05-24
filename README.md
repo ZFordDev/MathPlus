@@ -12,7 +12,7 @@
 ![License](https://img.shields.io/badge/License-MIT-green)
 ![Rust](https://img.shields.io/badge/Built%20with-Rust-orange)
 
-MathPlus is a small Windows calculator built in Rust using `egui`.  
+MathPlus is a small calculator built in Rust using `egui`.  
 It’s intentionally simple: quick math, a clean interface, and nothing running in the background.  
 No ads, no telemetry, no “smart” features — just a calculator that opens instantly and does its job.
 
@@ -33,7 +33,6 @@ Feel free to explore, modify, or use it as a base for your own ideas.
 - Handles standard operations (add, subtract, multiply, divide)  
 - Clean, minimal UI  
 - Keyboard‑friendly  
-- No network calls, no background services, no hidden processes  
 
 That’s it. Nothing complicated.
 
@@ -49,7 +48,7 @@ Keyboard support includes:
 - `Esc` clears the input
 - `Ctrl + C` copies the current result
 
-It’s a simple GUI app — no setup, no configuration, no learning curve.
+It’s a simple GUI Calulator.
 
 ---
 
@@ -62,7 +61,7 @@ The installer includes:
 - Clean uninstall  
 - Installs to:  
   ```
-  C:\Program Files\ZFordDev\MathPlus
+  C:\Program Files (x86)\StaxDash\MathPlus
   ```
 
 A portable `.exe` is also available if you prefer no install.
