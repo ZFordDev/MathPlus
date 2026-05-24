@@ -9,6 +9,7 @@ use meval::eval_str;
 mod history;
 mod history_ui;
 mod shortcuts;
+mod updater;
 use history::History;
 use shortcuts::handle_keyboard_shortcuts;
 
@@ -309,6 +310,8 @@ impl App for Calculator {
 }
 
 fn main() {
+    updater::check_for_updates();
+
     // Basic window options for the app.
     let options = eframe::NativeOptions {
         viewport: egui::ViewportBuilder::default()
