@@ -18,6 +18,7 @@ struct Calculator {
     history: History,
     show_history: bool,
     copied_at: Option<std::time::Instant>,
+    scientific_mode: bool,
 }
 
 // Provide a clean default state when the app starts.
@@ -29,6 +30,7 @@ impl Default for Calculator {
             history: History::new(100), // Keep last 100 calculations
             show_history: false,
             copied_at: None,
+            scientific_mode: false,
         }
     }
 }
@@ -37,6 +39,31 @@ impl Default for Calculator {
 // This runs every frame and draws the interface.
 impl App for Calculator {
     fn update(&mut self, ctx: &egui::Context, _frame: &mut Frame) {
+        // Scientific mode right panel
+        if self.scientific_mode {
+            egui::SidePanel::right("scientific_panel")
+                .resizable(false)
+                .default_width(220.0)
+                .min_width(200.0)
+                .show(ctx, |ui| {
+                    ui.vertical_centered(|ui| {
+                        ui.add_space(8.0);
+                        ui.label(
+                            egui::RichText::new("Scientific").size(16.0).strong().color(
+                                egui::Color32::from_rgb(160, 157, 232),
+                            ),
+                        );
+                        ui.separator();
+                        ui.add_space(8.0);
+                        ui.label(
+                            egui::RichText::new("Functions coming soon...")
+                                .size(13.0)
+                                .color(egui::Color32::from_rgb(140, 140, 150)),
+                        );
+                    });
+                });
+        }
+
         egui::CentralPanel::default().show(ctx, |ui| {
             ui.vertical_centered(|ui| {
                 ui.add_space(5.0);
@@ -234,6 +261,27 @@ impl App for Calculator {
                 if ui.add(history_btn).clicked() {
                     self.show_history = true;
                 }
+
+                ui.add_space(6.0);
+
+                // --- SCIENTIFIC MODE TOGGLE ---
+                let sci_label = if self.scientific_mode {
+                    "Basic Mode"
+                } else {
+                    "Scientific Mode"
+                };
+                let sci_btn =
+                    egui::Button::new(egui::RichText::new(sci_label).size(18.0).strong())
+                        .fill(if self.scientific_mode {
+                            egui::Color32::from_rgb(60, 80, 120)
+                        } else {
+                            egui::Color32::from_rgb(100, 100, 100)
+                        })
+                        .min_size(egui::vec2(250.0, 35.0));
+
+                if ui.add(sci_btn).clicked() {
+                    self.scientific_mode = !self.scientific_mode;
+                }
             });
         });
 
@@ -264,8 +312,8 @@ fn main() {
     // Basic window options for the app.
     let options = eframe::NativeOptions {
         viewport: egui::ViewportBuilder::default()
-            .with_inner_size([300.0, 580.0]) // Increased height to accommodate History button
-            .with_resizable(false),
+            .with_inner_size([300.0, 580.0])
+            .with_resizable(true),
         ..Default::default()
     };
 
