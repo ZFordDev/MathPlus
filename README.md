@@ -16,7 +16,7 @@ MathPlus is a small calculator built in Rust using `egui`.
 It’s intentionally simple: quick math, a clean interface, and nothing running in the background.  
 No ads, no telemetry, no “smart” features — just a calculator that opens instantly and does its job.
 
-It’s not trying to replace anything fancy. It’s just a lightweight tool that feels nice to use.
+It’s designed to stay lightweight and focused. It’s just a lightweight tool that feels nice to use.
 
 ---
 
