@@ -98,7 +98,7 @@ Your contributions set the stage for what comes next.
 ---
 
 ## **Project Status**
-MathPlus is **Community Active**.
+MathPlus is **Community Driven**.
 
 The core calculator is stable, but the project is evolving through community contributions and upcoming ecosystem integrations.
 
