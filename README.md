@@ -107,7 +107,6 @@ The core calculator is stable, but the project is evolving through community con
 - Scientific mode  
 - Themes  
 - Built‑in updater  
-- “MathPlus++” advanced version  
 
 ---
 
