@@ -48,7 +48,7 @@ Keyboard support includes:
 - `Esc` clears the input
 - `Ctrl + C` copies the current result
 
-It’s a simple GUI Calulator.
+It’s a simple GUI Calculator.
 
 ---
 
