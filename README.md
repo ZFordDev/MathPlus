@@ -97,6 +97,32 @@ Your contributions set the stage for what comes next.
 
 ---
 
+## Contributing
+
+MathPlus is open to community contributions — whether that's fixing bugs, improving the UI, or experimenting with new features.
+
+If you'd like to help out, check the Issues tab for open tasks and feature requests.
+
+### Good starting points
+- Settings panel / preferences UI
+- Keypress sound toggle
+- Theme override improvements
+- “Clear Entry” (CE) button
+- Linux packaging support (`.deb` / `.snap`)
+- Update status indicator
+- Expression parser improvements
+
+Issues marked with:
+- `good first issue`
+- `help wanted`
+- `UI/UX`
+
+…are especially beginner-friendly.
+
+Pull requests are welcome.
+
+---
+
 ## **Project Status**
 MathPlus is **Community Driven**.
 
