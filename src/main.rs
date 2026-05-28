@@ -138,6 +138,7 @@ impl App for Calculator {
                                                 o.copied_text = self.result.to_string()
                                             });
                                             self.copied_at = Some(std::time::Instant::now());
+                                            play_windows_click_sound();
                                         }
                                     }
 
@@ -216,6 +217,7 @@ impl App for Calculator {
                                                     self.input.push_str(label);
                                                 }
                                             }
+                                            play_windows_click_sound();
                                         }
                                     }
                                     ui.end_row();
@@ -248,6 +250,7 @@ impl App for Calculator {
                         }
                         Err(_) => self.result = f64::NAN,
                     }
+                    play_windows_click_sound();
                 }
 
                 ui.add_space(10.0);
@@ -260,6 +263,7 @@ impl App for Calculator {
 
                 if ui.add(history_btn).clicked() {
                     self.show_history = true;
+                    play_windows_click_sound();
                 }
 
                 ui.add_space(6.0);
@@ -281,6 +285,7 @@ impl App for Calculator {
 
                 if ui.add(sci_btn).clicked() {
                     self.scientific_mode = !self.scientific_mode;
+                    play_windows_click_sound();
                 }
             });
         });
@@ -307,6 +312,26 @@ impl App for Calculator {
         }
     }
 }
+
+#[cfg(windows)]
+fn play_windows_click_sound() {
+    use std::ffi::OsStr;
+    use std::os::windows::ffi::OsStrExt;
+    use windows::core::PCWSTR;
+    use windows::Win32::Media::Audio::{PlaySoundW, SND_ALIAS, SND_ASYNC, SND_NODEFAULT};
+
+    let alias: Vec<u16> = OsStr::new("SystemAsterisk")
+        .encode_wide()
+        .chain(Some(0))
+        .collect();
+
+    unsafe {
+        let _ = PlaySoundW(PCWSTR(alias.as_ptr()), None, SND_ALIAS | SND_ASYNC | SND_NODEFAULT);
+    }
+}
+
+#[cfg(not(windows))]
+fn play_windows_click_sound() {}
 
 fn main() {
     // Basic window options for the app.
