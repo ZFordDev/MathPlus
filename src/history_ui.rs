@@ -12,6 +12,11 @@ pub fn show_history_window(
     show: &mut bool,
 ) -> HistoryAction {
     let mut action = HistoryAction::None;
+    let accent_color = if ctx.style().visuals.dark_mode {
+        egui::Color32::LIGHT_BLUE
+    } else {
+        egui::Color32::from_rgb(48, 100, 210)
+    };
 
     egui::Window::new("Calculation History")
         .open(show)
@@ -38,8 +43,7 @@ pub fn show_history_window(
                                             format!("= {:.6}", calc.result)
                                         };
                                         ui.label(
-                                            egui::RichText::new(result_text)
-                                                .color(egui::Color32::LIGHT_BLUE),
+                                            egui::RichText::new(result_text).color(accent_color),
                                         );
                                     },
                                 );
