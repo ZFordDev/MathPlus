@@ -1,0 +1,50 @@
+name: Bug Report
+description: Report a reproducible issue in MathPlus
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for helping improve MathPlus!  
+        Please provide as much detail as possible so we can reproduce the issue.
+
+  - type: input
+    id: version
+    attributes:
+      label: MathPlus Version
+      placeholder: e.g., 0.3.1, 0.4.0-pre
+
+  - type: input
+    id: os
+    attributes:
+      label: Operating System
+      placeholder: e.g., Windows 11, Ubuntu 26, Fedora 40
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      description: List each step clearly.
+      placeholder: |
+        1. Open MathPlus
+        2. Enter an expression into the calculator
+        3. Switch to graph mode
+        4. App freezes or returns incorrect output
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      placeholder: Describe what you expected to happen.
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual Behavior
+      placeholder: Describe what actually happened.
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs / Screenshots (optional)
+      description: Attach anything helpful.
