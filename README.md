@@ -17,7 +17,7 @@
 <!-- ========================================================= -->
 
 [![Docs](https://img.shields.io/badge/DocsHub-docs.zford.dev-4F46E5?style=flat-square)](https://docs.zford.dev)
-![Status](https://img.shields.io/badge/Status-COMMUNITY_ACTIVE-4CAF50?style=flat-square)
+![Status](https://img.shields.io/badge/Status-ACTIVE-4CAF50?style=flat-square)
 ![Platforms](https://img.shields.io/badge/Platforms-Windows-blue?style=flat-square)
 
 <!-- ========================================================= -->
