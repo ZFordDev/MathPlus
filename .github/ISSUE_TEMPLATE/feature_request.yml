@@ -1,12 +1,12 @@
 name: Feature Request
-description: Suggest an improvement or new feature for SnapBoard
+description: Suggest an improvement or new feature for MathPlus
 labels: [enhancement]
 body:
   - type: markdown
     attributes:
       value: |
         Thanks for your idea!  
-        SnapBoard aims to stay minimal, stable, and workflow‑focused.  
+        MathPlus aims to stay minimal, stable, and math‑focused.  
         Please describe the problem your feature solves.
 
   - type: textarea

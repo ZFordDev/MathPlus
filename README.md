@@ -1,61 +1,135 @@
-[![Website](https://img.shields.io/badge/Website-zford.dev-000000?style=flat-square)](https://zford.dev)
-[![Ko‑Fi](https://img.shields.io/badge/Support-KoFi-FF5E5B?style=flat-square)](https://ko-fi.com/zforddev)
+<!-- ========================================================= -->
+<!-- Standards Approval Badge -->
+<!-- ========================================================= -->
+
+<table align="right">
+  <tr>
+    <td>
+      <img src="https://raw.githubusercontent.com/ZFordDev/ZFordDev/main/assets/standards-approved.svg" width="80" alt="ZFordDev Standards Approved Badge">
+    </td>
+  </tr>
+</table>
+
+<!-- ========================================================= -->
+
+<!-- Required Badges -->
+
+<!-- ========================================================= -->
+
+[![Docs](https://img.shields.io/badge/DocsHub-docs.zford.dev-4F46E5?style=flat-square)](https://docs.zford.dev)
+![Status](https://img.shields.io/badge/Status-COMMUNITY_ACTIVE-4CAF50?style=flat-square)
+![Platforms](https://img.shields.io/badge/Platforms-Windows-blue?style=flat-square)
+
+<!-- ========================================================= -->
+
+<!-- Optional Badges -->
+
+<!-- ========================================================= -->
+
 [![itch.io](https://img.shields.io/badge/itch.io-MathPlus-FA5C5C?style=flat-square)](https://zforddev.itch.io/mathplus)
+![Downloads](https://img.shields.io/github/downloads/ZFordDev/MathPlus/total?style=flat-square)
+![Rust](https://img.shields.io/badge/Built_with-Rust-orange?style=flat-square)
+
+# MathPlus
+
+> A tiny, fast, distraction‑free calculator built in Rust using `egui`.  
+> **Status:** Stable • Actively Maintained • Accepting Contributions
 
 ---
 
-# **MathPlus**
+## Why This Exists
 
-[![Download](https://img.shields.io/badge/Download-Releases-blue)](../../releases)
-![Platform](https://img.shields.io/badge/Platforms-Windows%20%7C%20Linux%20(Coming%20Soon)-blue)
-![Status](https://img.shields.io/badge/Status-Community%20Active-4CAF50)
-![License](https://img.shields.io/badge/License-MIT-green)
-![Rust](https://img.shields.io/badge/Built%20with-Rust-orange)
+Most desktop calculators are either:
 
-MathPlus is a small calculator built in Rust using `egui`.  
-It’s intentionally simple: quick math, a clean interface, and nothing running in the background.  
-No ads, no telemetry, no “smart” features — just a calculator that opens instantly and does its job.
+- bloated  
+- slow to open  
+- packed with features you don’t need  
+- or tied to a larger OS ecosystem  
 
-It’s designed to stay lightweight and focused. It’s just a lightweight tool that feels nice to use.
+MathPlus was built to be the opposite:
 
----
+- **fast**  
+- **local‑first**  
+- **lightweight**  
+- **no telemetry**  
+- **no background processes**  
 
-## A simple Rust example you can learn from
-MathPlus is also a great reference project if you're learning Rust or trying out `egui` for the first time.  
-The codebase is small, well‑structured, and easy to follow — ideal for experimenting with GUI apps, state handling, and basic expression evaluation.
+It opens instantly, stays out of the way, and does its job — nothing more.
 
-Feel free to explore, modify, or use it as a base for your own ideas.
-
----
-
-## **What it does**
-- Opens fast and stays out of the way  
-- Handles standard operations (add, subtract, multiply, divide)  
-- Clean, minimal UI  
-- Keyboard‑friendly  
-
-That’s it. Nothing complicated.
+MathPlus is also a great **learning reference** for Rust developers exploring GUI apps with `egui` and `eframe`.
 
 ---
 
-## **Using MathPlus**
-Just launch it and start typing.
+## Overview
 
-Keyboard support includes:
-- `0`–`9`, `.`, `+`, `-`, `*`, `/`
-- `Enter` or `=` evaluates the expression
-- `Backspace` deletes the last character
-- `Esc` clears the input
-- `Ctrl + C` copies the current result
+MathPlus is a simple, clean calculator with:
 
-It’s a simple GUI Calculator.
+- instant startup  
+- a minimal UI  
+- keyboard‑friendly input  
+- a small, readable Rust codebase  
+- a pure local workflow
+
+It’s intentionally basic — ideal for quick math, teaching, experimenting, or extending into your own ideas.
 
 ---
 
-## **Windows Installer**
-You can grab the installer from the **Releases** section.
+## Features
 
-The installer includes:
+- Fast startup and low resource usage  
+- Standard math operations  
+- Clean, minimal interface  
+- Keyboard‑first workflow  
+- Copy‑to‑clipboard support  
+- Rust + `egui` codebase that’s easy to explore  
+
+---
+
+## Requirements
+
+MathPlus is a native Rust application.
+
+**Operating System**
+- Windows 10 or later  
+- Linux support planned (AppImage / .deb)
+
+**Hardware**
+- CPU: 1 core  
+- RAM: ~50–80 MB  
+- Disk: ~5–10 MB  
+
+**Rust Toolchain (for building from source)**
+- Rust 1.80+  
+- Cargo (included with Rust)
+
+---
+
+## Quick Start
+
+Build MathPlus from source:
+
+```bash
+git clone https://github.com/ZFordDev/MathPlus.git
+cd MathPlus
+
+cargo build --release
+```
+
+The compiled binary will be located at:
+
+```
+target/release/MathPlus
+```
+
+---
+
+## Installation
+
+Most users should download the prebuilt Windows installer:
+
+👉 [https://github.com/ZFordDev/MathPlus/releases](https://github.com/ZFordDev/MathPlus/releases/latest/")
+
+**Windows Installer Includes**
 - Start Menu shortcut  
 - Optional desktop shortcut  
 - Clean uninstall  
@@ -64,72 +138,118 @@ The installer includes:
   C:\Program Files (x86)\StaxDash\MathPlus
   ```
 
-A portable `.exe` is also available if you prefer no install.
+A portable `.exe` is also available.
+
+Linux builds are planned for a future release.
 
 ---
 
-## **Contributors**
-MathPlus continues to grow thanks to the community.
+## Usage
 
-### ❤️ Special Thanks
+MathPlus is keyboard‑friendly:
 
-**@slash-aech** — for the fantastic UI improvements in v1.2.1  
-- refined button styling and layout  
-- improved color palette and rounding  
-- fixed layout clipping  
-- added a proper copy‑to‑clipboard button  
-- implemented `Ctrl + C` support  
+- `0–9`, `.`, `+`, `-`, `*`, `/` — enter expression  
+- `Enter` or `=` — evaluate  
+- `Backspace` — delete last character  
+- `Esc` — clear input  
+- `Ctrl + C` — copy result  
 
-Your work genuinely improved the feel of the app — thank you!
+Just open it and type.
 
-**@MD-Mushfiqur123** — for laying the groundwork for future expansion  
-- early foundations for the updater system  
-- initial structure for the scientific calculator add‑on  
-- forward‑thinking contributions that help shape the next phase of MathPlus
+---
 
-Your contributions set the stage for what comes next.
+## Project Structure
+
+```text
+MathPlus/
+├── src/
+│   ├── main.rs          # App entry point
+│   ├── ui.rs            # UI layout + egui widgets
+│   ├── state.rs         # Calculator state + logic
+│   └── updater.rs       # Optional update checker
+│
+├── assets/              # Icons and branding
+├── Cargo.toml           # Package metadata + dependencies
+├── LICENSE
+└── README.md
+```
+
+---
+
+## Roadmap
+
+- [ ] Linux packaging  
+- [ ] Calculation history  
+- [ ] Scientific mode  
+- [ ] Themes  
+- [ ] More keyboard shortcuts  
+- [ ] Better expression parser  
+
+---
+
+## Screenshots
+
+<p align="center">
+  <img src="assets/screenshots/mathplus-light.png" width="45%" />
+  <img src="assets/screenshots/mathplus-dark.png" width="45%" />
+</p>
+
+---
+
+## Known Issues
+
+- Linux builds not yet available  
+- No scientific functions (yet)  
+- No persistent history  
+
+---
+
+## Related Projects
+
+- **SchedPlus** - a basic Desktop Scheduler
+  https://github.com/ZFordDev/SchedPlus 
+
+---
+
+## Support
+
+You can support MathPlus by:
+
+* Leave a ⭐ on GitHub
+* Report bugs
+* Suggest new features
+* Improve documentation
+* Contribute code
 
 ---
 
 ## Contributing
 
-MathPlus is open to community contributions — whether that's fixing bugs, improving the UI, or experimenting with new features.
+Contributions, bug reports, feature requests, and feedback are welcome.
 
-If you'd like to help out, check the Issues tab for open tasks and feature requests.
-
-### Good starting points
-- Settings panel / preferences UI
-- Keypress sound toggle
-- Theme override improvements
-- “Clear Entry” (CE) button
-- Linux packaging support (`.deb` / `.snap`)
-- Update status indicator
-- Expression parser improvements
-
-Issues marked with:
-- `good first issue`
-- `help wanted`
-- `UI/UX`
-
-…are especially beginner-friendly.
-
-Pull requests are welcome.
+See `CONTRIBUTING.md` for project‑specific guidelines.  
+For ecosystem‑wide expectations, see [STANDARDS.md](https://github.com/ZFordDev/ZFordDev/blob/main/STANDARDS.md).
 
 ---
 
-## **Project Status**
-MathPlus is **Community Driven**.
+## Security
 
-The core calculator is stable, but the project is evolving through community contributions and upcoming ecosystem integrations.
-
-### Potential future additions:
-- Calculation history  
-- Scientific mode  
-- Themes  
-- Built‑in updater  
+See `SECURITY.md` for vulnerability reporting guidelines.  
+If no security policy is present, please report issues responsibly via GitHub Issues.
 
 ---
 
-## **License**
+## License
+
 Released under the MIT License.  
 See `LICENSE` for details.
+
+---
+
+## About ZFordDev
+
+This project is part of the ZFordDev ecosystem — a collection of lightweight, practical tools built with clarity, simplicity, and long‑term maintainability in mind.
+
+For ecosystem‑wide standards, see [STANDARDS.md](https://github.com/ZFordDev/ZFordDev/blob/main/STANDARDS.md).
+
+---
