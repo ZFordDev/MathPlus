@@ -1,6 +1,6 @@
 # Pull Request
 
-Thank you for contributing to SnapBoard!  
+Thank you for contributing to MathPlus!  
 Please complete the sections below to help us review your PR.
 
 ---
@@ -25,7 +25,7 @@ Describe what this PR changes and why.
 ## Details
 
 Explain the implementation, any decisions made, and any side effects.  
-If the change affects board layout, card behaviour, drag‑and‑drop logic, or workspace persistence, please describe it clearly.
+If the change affects expression parsing, UI behaviour, update checking, or GPU initialization, please describe it clearly.
 
 ---
 
@@ -36,8 +36,8 @@ Describe how you tested your changes:
 - [ ] Builds successfully  
 - [ ] Tested on Windows  
 - [ ] Tested on Linux  
-- [ ] Board layout persists correctly  
-- [ ] Card interactions behave as expected  
+- [ ] UI behaves as expected  
+- [ ] Expression evaluation works correctly  
 - [ ] No regressions found  
 
 ---
