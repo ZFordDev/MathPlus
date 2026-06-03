@@ -1,4 +1,5 @@
 use crate::history::History;
+use crate::logic::format_history_result;
 use eframe::egui;
 
 pub enum HistoryAction {
@@ -37,11 +38,7 @@ pub fn show_history_window(
                                 ui.with_layout(
                                     egui::Layout::right_to_left(egui::Align::Center),
                                     |ui| {
-                                        let result_text = if calc.result.is_nan() {
-                                            "Error".to_string()
-                                        } else {
-                                            format!("= {:.6}", calc.result)
-                                        };
+                                        let result_text = format_history_result(calc.result);
                                         ui.label(
                                             egui::RichText::new(result_text).color(accent_color),
                                         );
