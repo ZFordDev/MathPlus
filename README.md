@@ -17,7 +17,7 @@
 <!-- ========================================================= -->
 
 [![Docs](https://img.shields.io/badge/DocsHub-docs.zford.dev-4F46E5?style=flat-square)](https://docs.zford.dev)
-![Status](https://img.shields.io/badge/Status-Deprecated-9E9E9E?style=flat-square)
+![Status](https://img.shields.io/badge/Status-ARCHIVED-9E9E9E?style=flat-square)
 ![Platforms](https://img.shields.io/badge/Platforms-Windows-blue?style=flat-square)
 
 <!-- ========================================================= -->
@@ -33,7 +33,12 @@
 # MathPlus
 
 > A tiny, fast, distraction‑free calculator built in Rust using `egui`.  
-> **Status:** Stable • Scheduled for Deprecation • Accepting Contributions
+> **Status:** Stable • ARCHIVED • NOT Accepting Contributions
+
+---
+
+> [!NOTE]  
+> This project has been Archived due to change of direction.
 
 ---
 
