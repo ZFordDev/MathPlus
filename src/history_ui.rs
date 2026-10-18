@@ -13,7 +13,7 @@ pub fn show_history_window(
     show: &mut bool,
 ) -> HistoryAction {
     let mut action = HistoryAction::None;
-    let accent_color = if ctx.style().visuals.dark_mode {
+    let accent_color = if ctx.theme() == egui::Theme::Dark {
         egui::Color32::LIGHT_BLUE
     } else {
         egui::Color32::from_rgb(48, 100, 210)

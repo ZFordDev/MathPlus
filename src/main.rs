@@ -6,13 +6,12 @@ mod app;
 mod history;
 mod history_ui;
 mod logic;
-mod platform;
 mod shortcuts;
 mod theme;
 mod ui;
 
 use app::Calculator;
-use eframe::{egui, Theme};
+use eframe::egui;
 
 fn load_icon() -> egui::IconData {
     let bytes = include_bytes!("../assets/icon.ico");
@@ -36,14 +35,12 @@ fn main() {
             .with_inner_size([300.0, 580.0])
             .with_resizable(true)
             .with_icon(load_icon()),
-        follow_system_theme: true,
-        default_theme: Theme::Dark,
         ..Default::default()
     };
 
     let _ = eframe::run_native(
         "MathPlus",
         options,
-        Box::new(|_cc| Box::<Calculator>::default()),
+        Box::new(|_cc| Ok(Box::<Calculator>::default())),
     );
 }

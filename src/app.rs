@@ -30,15 +30,17 @@ impl Default for Calculator {
 }
 
 impl App for Calculator {
-    fn update(&mut self, ctx: &egui::Context, _frame: &mut Frame) {
+    fn ui(&mut self, ui: &mut egui::Ui, _frame: &mut Frame) {
+        let ctx = ui.ctx().clone();
+
         if self.scientific_mode {
-            render_scientific_panel(ctx);
+            render_scientific_panel(ui);
         }
 
-        render_calculator_ui(self, ctx);
+        render_calculator_ui(self, ui);
 
         handle_keyboard_shortcuts(
-            ctx,
+            &ctx,
             &mut self.input,
             &mut self.result,
             &mut self.history,
@@ -47,7 +49,7 @@ impl App for Calculator {
         );
 
         if self.show_history {
-            let action = show_history_window(ctx, &self.history, &mut self.show_history);
+            let action = show_history_window(&ctx, &self.history, &mut self.show_history);
             if matches!(action, HistoryAction::Clear) {
                 self.history.clear();
             }

@@ -4,8 +4,10 @@ use eframe::egui;
 
 use super::{render_actions, render_display, render_keypad};
 
-pub fn render_calculator_ui(calc: &mut Calculator, ctx: &egui::Context) {
-    egui::CentralPanel::default().show(ctx, |ui| {
+pub fn render_calculator_ui(calc: &mut Calculator, ui: &mut egui::Ui) {
+    let ctx = ui.ctx().clone();
+
+    egui::CentralPanel::default().show(ui, |ui| {
         ui.vertical_centered(|ui| {
             ui.add_space(5.0);
 
@@ -14,7 +16,7 @@ pub fn render_calculator_ui(calc: &mut Calculator, ctx: &egui::Context) {
                     egui::RichText::new("MATH+")
                         .strong()
                         .color(calc.theme_mode.color(
-                            ctx,
+                            &ctx,
                             egui::Color32::GRAY,
                             egui::Color32::DARK_GRAY,
                         )),
@@ -30,16 +32,16 @@ pub fn render_calculator_ui(calc: &mut Calculator, ctx: &egui::Context) {
                     });
             });
 
-            calc.theme_mode.apply(ctx);
+            calc.theme_mode.apply(&ctx);
 
-            render_display(calc, ctx, ui);
+            render_display(calc, &ctx, ui);
 
             ui.add_space(10.0);
             ui.separator();
             ui.add_space(10.0);
 
-            render_keypad(calc, ctx, ui);
-            render_actions(calc, ctx, ui);
+            render_keypad(calc, &ctx, ui);
+            render_actions(calc, &ctx, ui);
         });
     });
 }

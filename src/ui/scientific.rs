@@ -1,11 +1,11 @@
 use eframe::egui;
 
-pub fn render_scientific_panel(ctx: &egui::Context) {
-    egui::SidePanel::right("scientific_panel")
+pub fn render_scientific_panel(ui: &mut egui::Ui) {
+    egui::Panel::right("scientific_panel")
         .resizable(false)
-        .default_width(220.0)
-        .min_width(200.0)
-        .show(ctx, |ui| {
+        .default_size(220.0)
+        .min_size(200.0)
+        .show(ui, |ui| {
             ui.vertical_centered(|ui| {
                 ui.add_space(8.0);
                 ui.label(

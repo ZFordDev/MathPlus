@@ -1,6 +1,5 @@
 use crate::app::Calculator;
 use crate::logic::evaluate_expression;
-use crate::platform::play_click_sound;
 use eframe::egui;
 
 pub fn render_actions(calc: &mut Calculator, ctx: &egui::Context, ui: &mut egui::Ui) {
@@ -18,7 +17,7 @@ pub fn render_actions(calc: &mut Calculator, ctx: &egui::Context, ui: &mut egui:
         egui::Color32::from_rgb(37, 37, 53),
         egui::Color32::from_rgb(70, 100, 170),
     ))
-    .rounding(egui::Rounding::same(12.0))
+    .corner_radius(egui::CornerRadius::same(12))
     .min_size(egui::vec2(250.0, 50.0));
 
     if ui.add(equals_btn).clicked() {
@@ -29,7 +28,6 @@ pub fn render_actions(calc: &mut Calculator, ctx: &egui::Context, ui: &mut egui:
             }
             Err(_) => calc.result = f64::NAN,
         }
-        play_click_sound();
     }
 
     ui.add_space(10.0);
@@ -52,7 +50,6 @@ pub fn render_actions(calc: &mut Calculator, ctx: &egui::Context, ui: &mut egui:
 
     if ui.add(history_btn).clicked() {
         calc.show_history = true;
-        play_click_sound();
     }
 
     ui.add_space(6.0);
@@ -89,6 +86,5 @@ pub fn render_actions(calc: &mut Calculator, ctx: &egui::Context, ui: &mut egui:
 
     if ui.add(sci_btn).clicked() {
         calc.scientific_mode = !calc.scientific_mode;
-        play_click_sound();
     }
 }

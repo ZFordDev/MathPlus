@@ -1,4 +1,4 @@
-use eframe::{Theme, egui};
+use eframe::egui::{self, Theme};
 
 #[derive(Clone, Copy, PartialEq, Eq, Default)]
 pub enum ThemeMode {
@@ -19,7 +19,7 @@ impl ThemeMode {
 
     pub fn is_dark_mode(self, ctx: &egui::Context) -> bool {
         match self {
-            ThemeMode::System => ctx.style().visuals.dark_mode,
+            ThemeMode::System => ctx.theme() == Theme::Dark,
             ThemeMode::Light => false,
             ThemeMode::Dark => true,
         }
@@ -27,12 +27,12 @@ impl ThemeMode {
 
     pub fn apply(self, ctx: &egui::Context) {
         if self != ThemeMode::System {
-            let visuals = match self {
-                ThemeMode::Light => Theme::Light.egui_visuals(),
-                ThemeMode::Dark => Theme::Dark.egui_visuals(),
+            let theme = match self {
+                ThemeMode::Light => Theme::Light,
+                ThemeMode::Dark => Theme::Dark,
                 ThemeMode::System => unreachable!(),
             };
-            ctx.set_visuals(visuals);
+            ctx.set_theme(theme);
         }
     }
 

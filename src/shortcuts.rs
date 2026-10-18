@@ -33,14 +33,14 @@ pub fn handle_keyboard_shortcuts(
             }
             Event::Copy => {
                 if !result.is_nan() && !(*result == 0.0 && input.is_empty()) {
-                    ctx.output_mut(|o| o.copied_text = result.to_string());
+                    ctx.copy_text(result.to_string());
                     *copied_at = Some(std::time::Instant::now());
                 }
             }
             Event::Key {
                 key,
                 pressed,
-                modifiers,
+                modifiers: _,
                 ..
             } if pressed => match key {
                 Key::Enter => evaluate_input(input, result, history),

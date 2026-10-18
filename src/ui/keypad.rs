@@ -1,5 +1,4 @@
 use crate::app::Calculator;
-use crate::platform::play_click_sound;
 use eframe::egui;
 
 const KEYPAD_ROWS: &[&[&str]] = &[
@@ -77,7 +76,7 @@ pub fn render_keypad(calc: &mut Calculator, ctx: &egui::Context, ui: &mut egui::
                                     .color(text_color),
                             )
                             .fill(fill)
-                            .rounding(egui::Rounding::same(10.0))
+                            .corner_radius(egui::CornerRadius::same(10))
                             .stroke(egui::Stroke::new(
                                 0.5,
                                 calc.theme_mode.color(
@@ -101,7 +100,6 @@ pub fn render_keypad(calc: &mut Calculator, ctx: &egui::Context, ui: &mut egui::
                                     }
                                     _ => calc.input.push_str(label),
                                 }
-                                play_click_sound();
                             }
                         }
                         ui.end_row();
