@@ -1,151 +1,32 @@
-<!-- ========================================================= -->
-<!-- Standards Approval Badge -->
-<!-- ========================================================= -->
-<table align="right">
-  <tr>
-    <td>
-      <img src="https://raw.githubusercontent.com/ZFordDev/ZFordDev/main/assets/standards-approved.svg" width="80" alt="ZFordDev Standards Approved Badge">
-    </td>
-  </tr>
-</table>
+# Contributing
 
-# Contributing to ZFordDev Projects
+Thanks for helping out. This is a small project, so the rules are small too.
 
-Thank you for your interest in contributing!  
-All ZFordDev projects follow a shared set of standards designed to keep the ecosystem consistent, maintainable, and welcoming.
+## Getting started
 
-This document explains how to contribute code, documentation, bug reports, and feature requests across the ecosystem.
+1. Check [open issues](https://github.com/ZFordDev/MathPlus/issues) so you don't duplicate work.
+2. Fork and create a branch: `feature/thing` or `fix/thing`.
+3. Make your change. Keep PRs focused — one fix or feature per PR.
+4. Make sure `cargo build --release` succeeds.
+5. Open a PR describing what changed and why.
 
-For ecosystem‑wide expectations, please read:
+## What fits this project
 
-👉 [**STANDARDS.md**](https://github.com/ZFordDev/ZFordDev/blob/main/STANDARDS.md)  
-(Clarity • Simplicity • Maintainability • Long‑term stability)
+MathPlus is meant to stay tiny, fast, and simple. Before opening a PR for a new feature, consider whether it belongs here:
 
----
+- **Good fits** — bug fixes, small quality-of-life improvements, better expressions/parsing, platform support, docs, tests.
+- **Probably not** — heavy dependencies, plugin systems, background services, features that turn this into a full scientific suite.
 
-## Ways to Contribute
+If you're unsure, open an issue first and ask.
 
-You can contribute in many ways:
+## Style
 
-- Reporting bugs  
-- Suggesting new features  
-- Improving documentation  
-- Submitting pull requests  
-- Reviewing existing issues  
-- Helping refine UX or workflows  
-- Testing on different platforms  
+Follow the existing code style. Read a neighbouring file before writing a new one — the patterns are consistent.
 
-All contributions are appreciated — even small ones.
+## Bug reports
 
----
+Include your OS, app version, steps to reproduce, and what you expected vs. what happened. Screenshots help.
 
 ## Code of Conduct
 
-By participating in this project, you agree to follow:
-
-👉 [**CODE_OF_CONDUCT.md**](CODE_OF_CONDUCT.md)
-
-Respect, clarity, and constructive collaboration are core values of the ecosystem.
-
----
-
-## Before You Start
-
-Please check:
-
-- The **Issues** tab for existing reports  
-- The **Roadmap** (if present)  
-- The **Discussions** tab for ongoing ideas  
-- The **STANDARDS.md** file for ecosystem rules  
-- The **project‑specific section** below for details unique to this repository
-
-If you’re unsure whether an idea fits, open a Discussion first — it saves everyone time.
-
----
-
-## Pull Request Guidelines
-
-To keep contributions consistent:
-
-1. **Fork the repository**  
-2. **Create a feature branch**  
-   - `feature/your-feature-name`  
-   - `fix/your-bug-name`
-3. **Keep PRs focused**  
-   - One feature or fix per PR  
-   - Avoid unrelated formatting changes
-4. **Follow the coding style of the project**  
-   - Naming conventions  
-   - File structure  
-   - Module layout  
-5. **Test your changes**  
-   - Ensure the app builds  
-   - Ensure no regressions  
-6. **Write clear commit messages**  
-   - Present tense  
-   - Short and descriptive  
-7. **Describe your PR clearly**  
-   - What changed  
-   - Why it changed  
-   - Any side effects or considerations
-
-Small, focused PRs are easier to review and merge.
-
----
-
-## Reporting Bugs
-
-When reporting a bug, please include:
-
-- OS and version  
-- App version  
-- Steps to reproduce  
-- Expected behavior  
-- Actual behavior  
-- Screenshots or logs (if helpful)
-
-Clear reports help us fix issues faster.
-
----
-
-## Suggesting Features
-
-Feature requests should:
-
-- Explain the problem, not just the solution  
-- Describe the use case  
-- Fit the project’s philosophy (see STANDARDS.md)  
-- Avoid scope creep or IDE‑level complexity  
-
-If unsure, open a Discussion first.
-
----
-
-## Project‑Specific Guidelines
-
-Each project may have additional rules, workflows, or architectural notes.
-
-### MathPlus‑Specific Notes
-
-MathPlus is a small, native Rust application built with `egui`/`eframe`.  
-Contributions should reflect its lightweight, minimal, and predictable design:
-
-- UI changes should follow the existing layout and interaction patterns  
-- Avoid introducing heavy dependencies — keep the binary small and fast  
-- Expression evaluation must remain safe, local, and predictable  
-- Do not add features that turn MathPlus into a full scientific suite unless scoped and discussed  
-- GPU‑related changes should be tested on Windows (and Linux when available)  
-- Keep the codebase simple and beginner‑friendly — MathPlus is also a learning reference  
-- Maintain the clean, distraction‑free feel of the interface  
-- Ensure new features align with the “tiny, fast, stable” philosophy of MathPlus  
-- Avoid complex plugin systems, scripting engines, or background services  
-- Follow the existing module layout in `src/`.
-
----
-
-## Thank You
-
-Your contributions help strengthen the entire ZFordDev ecosystem.  
-Whether you’re fixing a typo or building a major feature — you’re part of the project’s future.
-
-
+Be kind and constructive — see [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).

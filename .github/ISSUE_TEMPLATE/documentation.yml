@@ -1,15 +1,9 @@
-name: Documentation Update
-description: Suggest improvements to documentation or examples
+name: Documentation
+description: Report missing, wrong, or confusing docs
 labels: [documentation]
 body:
   - type: textarea
     id: update
     attributes:
-      label: What needs to be updated?
-      placeholder: |
-        Describe the missing, unclear, or incorrect documentation.
-        Examples:
-        - A function is undocumented
-        - A math mode is unclear
-        - A screenshot is outdated
-        - A section needs clarification
+      label: What needs fixing?
+      placeholder: e.g. "the README lists a shortcut that doesn't work", "a screenshot is outdated"

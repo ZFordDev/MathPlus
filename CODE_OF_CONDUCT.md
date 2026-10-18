@@ -1,103 +1,22 @@
-<!-- ========================================================= -->
-<!-- Standards Approval Badge -->
-<!-- ========================================================= -->
-<table align="right">
-  <tr>
-    <td>
-      <img src="https://raw.githubusercontent.com/ZFordDev/ZFordDev/main/assets/standards-approved.svg" width="80" alt="ZFordDev Standards Approved Badge">
-    </td>
-  </tr>
-</table>
-
 # Code of Conduct
 
-The ZFordDev ecosystem is built on clarity, simplicity, and long‑term maintainability.  
-To keep our community healthy and welcoming, all contributors are expected to follow the guidelines below.
+Short version: be kind, argue about code not people, and give people the benefit of the doubt.
 
-This Code of Conduct applies to all project spaces, including GitHub Issues, Discussions, pull requests, and any community interactions related to ZFordDev projects.
+## The basics
 
----
+- Be respectful and constructive in issues, PRs, and discussions.
+- No harassment, personal attacks, discriminatory language, or trolling.
+- Critique ideas, not people. Assume good intent.
+- Respect people's time — stay on topic.
 
-## Our Principles
+## What won't be tolerated
 
-We strive to create an environment where contributors can collaborate respectfully and productively.  
-We expect all participants to:
-
-- Be kind, patient, and constructive  
-- Respect differing viewpoints and experiences  
-- Give and receive feedback gracefully  
-- Focus on improving the project, not winning arguments  
-- Assume good intentions  
-- Keep discussions technical, not personal  
-
----
-
-## Unacceptable Behavior
-
-The following behaviors are not allowed in any ZFordDev project:
-
-- Harassment, insults, or personal attacks  
-- Discriminatory language or exclusionary behavior  
-- Trolling, baiting, or intentionally derailing discussions  
-- Publishing private information without permission  
-- Aggressive or hostile communication  
-- Repeatedly ignoring project standards or maintainers’ guidance  
-
----
-
-## Responsibilities of Maintainers
-
-Project maintainers are responsible for:
-
-- Clarifying standards and expectations  
-- Reviewing contributions fairly  
-- Providing constructive feedback  
-- Taking action when behavior violates this Code  
-- Keeping the community safe and welcoming  
-
-Maintainers may remove comments, close issues, or reject contributions that violate these guidelines.
-
----
-
-## Reporting Issues
-
-If you experience or witness behavior that violates this Code of Conduct:
-
-- Open a private issue if appropriate  
-- Or contact the project maintainer directly through GitHub  
-
-All reports will be reviewed promptly and handled respectfully.
-
----
+Harassment, hate speech, doxxing, deliberate derailment, or repeated disregard for maintainer guidance. This applies everywhere in the project — issues, PRs, and any related communication.
 
 ## Enforcement
 
-Consequences for violating this Code may include:
+Maintainers may remove comments, close issues, or reject contributions that cross the line. If you experience or witness bad behaviour, contact the maintainer privately through GitHub.
 
-- A private warning  
-- Temporary or permanent removal from project spaces  
-- Rejection of contributions  
-- Escalation to GitHub moderation if necessary  
+## This project specifically
 
-Enforcement decisions are made by project maintainers and are final.
-
----
-
-## MathPlus‑Specific Notes
-
-MathPlus is a tiny, focused calculator built in Rust.  
-Contributions should reflect that philosophy:
-
-- Keep discussions respectful, constructive, and solution‑oriented  
-- Maintain the lightweight, minimal nature of the app  
-- Avoid proposing features that introduce unnecessary complexity or bloat  
-- Preserve the clean, predictable UI and simple interaction patterns  
-- Keep the codebase approachable — MathPlus is also a learning reference  
-- Ensure new ideas align with the “tiny, fast, stable” philosophy of MathPlus  
-
----
-
-## Acknowledgment
-
-This Code of Conduct is inspired by the Contributor Covenant but rewritten to better fit the ZFordDev ecosystem’s tone and values.
-
+MathPlus is intentionally tiny. Please keep feedback and proposals respectful of that — "no" to a feature isn't a dismissal of you.

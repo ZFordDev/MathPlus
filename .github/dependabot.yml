@@ -1,12 +1,7 @@
-# Dependabot configuration for MathPlus
-# Updates Cargo dependencies and GitHub Actions workflows.
-# See documentation for all configuration options:
-# https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
-
 version: 2
 updates:
   - package-ecosystem: "cargo"
-    directory: "/"         
+    directory: "/"
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 5
@@ -17,6 +12,6 @@ updates:
           - "*"
 
   - package-ecosystem: "github-actions"
-    directory: "/"    
+    directory: "/"
     schedule:
       interval: "weekly"

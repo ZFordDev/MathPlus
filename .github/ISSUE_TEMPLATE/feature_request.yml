@@ -1,34 +1,25 @@
 name: Feature Request
-description: Suggest an improvement or new feature for MathPlus
+description: Suggest an improvement for MathPlus
 labels: [enhancement]
 body:
   - type: markdown
     attributes:
       value: |
-        Thanks for your idea!  
-        MathPlus aims to stay minimal, stable, and math‑focused.  
-        Please describe the problem your feature solves.
+        MathPlus aims to stay tiny and fast. Describe the problem first — the solution might not need to be a new feature.
 
   - type: textarea
     id: problem
     attributes:
-      label: Problem / Use Case
-      placeholder: What problem does this solve? What workflow is blocked or inefficient?
+      label: What problem does this solve?
+      placeholder: What are you trying to do that's currently awkward or impossible?
 
   - type: textarea
     id: proposal
     attributes:
-      label: Proposed Solution
-      placeholder: Describe the feature, interaction, or workflow improvement.
-
-  - type: textarea
-    id: alternatives
-    attributes:
-      label: Alternatives Considered (optional)
-      placeholder: Any other approaches you thought about?
+      label: What are you suggesting?
 
   - type: textarea
     id: notes
     attributes:
-      label: Additional Notes (optional)
-      placeholder: Screenshots, examples, or extra context.
+      label: Anything else? (optional)
+      placeholder: Screenshots, alternatives you considered, etc.
