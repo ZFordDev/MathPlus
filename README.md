@@ -46,10 +46,12 @@ The binary lands in `target/release/` (`MathPlus.exe` on Windows).
 |---|---|
 | `0–9` `.` `+` `-` `*` `/` | Type an expression |
 | `Enter` or `=` | Evaluate |
-| `Backspace` | Delete last character |
+| `Backspace` | Delete previous character |
 | `Esc` or `C` | Clear |
 | `Ctrl+C` | Copy result |
 | `H` | Open history |
+
+The expression field is editable — click anywhere in it to fix a typo mid-expression.
 
 ## Project layout
 

@@ -13,16 +13,49 @@ pub fn render_display(calc: &mut Calculator, ctx: &egui::Context, ui: &mut egui:
 
                 ui.with_layout(egui::Layout::right_to_left(egui::Align::Center), |ui| {
                     ui.add_space(10.0);
-                    ui.label(
-                        egui::RichText::new(&calc.input)
-                            .size(32.0)
-                            .monospace()
-                            .color(calc.theme_mode.color(
+                    let response = ui.add(
+                        egui::TextEdit::singleline(&mut calc.input)
+                            .id_salt("expression_input")
+                            .font(egui::FontSelection::FontId(egui::FontId::new(
+                                32.0,
+                                egui::FontFamily::Monospace,
+                            )))
+                            .text_color(calc.theme_mode.color(
                                 ctx,
                                 egui::Color32::from_rgb(232, 232, 238),
                                 egui::Color32::from_rgb(24, 24, 28),
-                            )),
+                            ))
+                            // Plain label look — no boxed input frame.
+                            .frame(egui::Frame::NONE)
+                            .desired_width(f32::INFINITY)
+                            .align(egui::Align2::RIGHT_CENTER)
+                            // Enter must not surrender focus — our shortcut
+                            // handler evaluates the expression instead.
+                            .return_key(None)
+                            // Esc clears the expression but must keep focus
+                            // in the field (default Esc hands focus back to
+                            // the window and the next keystroke goes nowhere).
+                            .event_filter(egui::EventFilter {
+                                horizontal_arrows: true,
+                                vertical_arrows: true,
+                                tab: false,
+                                escape: true,
+                            }),
                     );
+
+                    // Focus the field once at startup so typing works
+                    // immediately; afterwards focus is the user's to manage.
+                    if calc.focus_input {
+                        response.request_focus();
+                        calc.focus_input = false;
+                    }
+
+                    // Remember whether the field has a text selection, so the
+                    // Copy shortcut can prefer it over copying the result.
+                    calc.field_has_selection = response.has_focus()
+                        && egui::text_edit::TextEditState::load(ctx, response.id)
+                            .and_then(|s| s.cursor.char_range())
+                            .is_some_and(|r| !r.is_empty());
                 });
 
                 ui.with_layout(egui::Layout::right_to_left(egui::Align::Center), |ui| {
