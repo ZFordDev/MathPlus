@@ -1,5 +1,5 @@
 use crate::app::Calculator;
-use crate::logic::format_result;
+use crate::logic::{format_result, format_value};
 use eframe::egui;
 
 pub fn render_display(calc: &mut Calculator, ctx: &egui::Context, ui: &mut egui::Ui) {
@@ -90,7 +90,7 @@ pub fn render_display(calc: &mut Calculator, ctx: &egui::Context, ui: &mut egui:
                             .min_size(egui::vec2(18.0, 18.0));
 
                         if ui.add(copy_btn).clicked() {
-                            ui.ctx().copy_text(calc.result.to_string());
+                            ui.ctx().copy_text(format_value(calc.result));
                             calc.copied_at = Some(std::time::Instant::now());
                         }
                     }

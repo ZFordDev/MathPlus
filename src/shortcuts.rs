@@ -1,5 +1,6 @@
 use crate::app::Calculator;
 use crate::history::History;
+use crate::logic::format_value;
 use eframe::egui::{self, Event, Key};
 use meval::eval_str;
 
@@ -69,14 +70,12 @@ pub fn handle_keyboard_shortcuts(
             // it during render — don't overwrite the clipboard with the result.
             Event::Copy if !calc.field_has_selection => {
                 if !calc.result.is_nan() && !(calc.result == 0.0 && calc.input.is_empty()) {
-                    ctx.copy_text(calc.result.to_string());
+                    ctx.copy_text(format_value(calc.result));
                     calc.copied_at = Some(std::time::Instant::now());
                 }
             }
             Event::Key {
-                key,
-                pressed: true,
-                ..
+                key, pressed: true, ..
             } => match key {
                 Key::Enter => evaluate_input(&calc.input, &mut calc.result, &mut calc.history),
                 Key::Escape => clear_input(&mut calc.input, &mut calc.result),
