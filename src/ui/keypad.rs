@@ -96,7 +96,9 @@ pub fn render_keypad(calc: &mut Calculator, ctx: &egui::Context, ui: &mut egui::
                                         calc.result = 0.0;
                                     }
                                     "CE" => {
-                                        calc.input.pop();
+                                        if clear_current_entry(&mut calc.input) {
+                                            calc.result = 0.0;
+                                        }
                                     }
                                     _ => calc.input.push_str(label),
                                 }
@@ -107,4 +109,38 @@ pub fn render_keypad(calc: &mut Calculator, ctx: &egui::Context, ui: &mut egui::
                 });
         });
     });
+}
+
+fn clear_current_entry(input: &mut String) -> bool {
+    let Some((last_index, last_char)) = input.char_indices().next_back() else {
+        return false;
+    };
+    if !last_char.is_ascii_digit() && last_char != '.' {
+        return false;
+    }
+
+    let mut entry_start = last_index;
+    for (index, ch) in input.char_indices().rev() {
+        if ch.is_ascii_digit() || ch == '.' {
+            entry_start = index;
+        } else {
+            break;
+        }
+    }
+
+    // Include a leading minus when it is unary and belongs to this entry.
+    if entry_start > 0 && input[..entry_start].ends_with('-') {
+        let before_minus = &input[..entry_start - 1];
+        if before_minus.is_empty()
+            || matches!(
+                before_minus.chars().next_back(),
+                Some('+' | '-' | '*' | '/')
+            )
+        {
+            entry_start -= 1;
+        }
+    }
+
+    input.truncate(entry_start);
+    true
 }
