@@ -3,10 +3,12 @@ use crate::logic::{format_result, format_value};
 use eframe::egui;
 
 pub fn render_display(calc: &mut Calculator, ctx: &egui::Context, ui: &mut egui::Ui) {
-    ui.allocate_ui(egui::vec2(260.0, 100.0), |ui| {
+    let colors = calc.theme_mode.calculator_colors(ctx);
+    let display_width = ui.available_width().min(480.0);
+    ui.allocate_ui(egui::vec2(display_width, 100.0), |ui| {
         egui::Frame::canvas(ui.style()).show(ui, |ui| {
             ui.set_height(95.0);
-            ui.set_width(260.0);
+            ui.set_width(display_width);
 
             ui.vertical(|ui| {
                 ui.add_space(10.0);
@@ -17,14 +19,10 @@ pub fn render_display(calc: &mut Calculator, ctx: &egui::Context, ui: &mut egui:
                         egui::TextEdit::singleline(&mut calc.input)
                             .id_salt("expression_input")
                             .font(egui::FontSelection::FontId(egui::FontId::new(
-                                32.0,
+                                22.0,
                                 egui::FontFamily::Monospace,
                             )))
-                            .text_color(calc.theme_mode.color(
-                                ctx,
-                                egui::Color32::from_rgb(232, 232, 238),
-                                egui::Color32::from_rgb(24, 24, 28),
-                            ))
+                            .text_color(colors.key_foreground)
                             // Plain label look — no boxed input frame.
                             .frame(egui::Frame::NONE)
                             .desired_width(f32::INFINITY)
@@ -68,40 +66,34 @@ pub fn render_display(calc: &mut Calculator, ctx: &egui::Context, ui: &mut egui:
                         .unwrap_or(false);
 
                     if just_copied {
-                        ui.label(egui::RichText::new("Copied!").size(11.0).color(
-                            calc.theme_mode.color(
-                                ctx,
-                                egui::Color32::from_rgb(160, 157, 232),
-                                egui::Color32::from_rgb(70, 90, 170),
-                            ),
-                        ));
+                        ui.label(
+                            egui::RichText::new("Copied!")
+                                .size(11.0)
+                                .color(colors.accent_foreground),
+                        );
                         ctx.request_repaint();
                     } else {
-                        let copy_btn =
-                            egui::Button::new(egui::RichText::new("📋").size(13.0).color(
-                                calc.theme_mode.color(
-                                    ctx,
-                                    egui::Color32::from_rgb(110, 110, 120),
-                                    egui::Color32::from_rgb(90, 90, 100),
-                                ),
-                            ))
-                            .fill(egui::Color32::TRANSPARENT)
-                            .stroke(egui::Stroke::NONE)
-                            .min_size(egui::vec2(18.0, 18.0));
+                        let copy_btn = egui::Button::new(
+                            egui::RichText::new("Copy")
+                                .size(11.0)
+                                .color(colors.muted_foreground),
+                        )
+                        .fill(egui::Color32::TRANSPARENT)
+                        .stroke(egui::Stroke::NONE)
+                        .min_size(egui::vec2(18.0, 18.0));
 
-                        if ui.add(copy_btn).clicked() {
+                        let copy_response = ui.add(copy_btn);
+                        if copy_response.clicked() {
                             ui.ctx().copy_text(format_value(calc.result));
                             calc.copied_at = Some(std::time::Instant::now());
                         }
                     }
 
-                    ui.label(egui::RichText::new(&res_text).size(18.0).color(
-                        calc.theme_mode.color(
-                            ctx,
-                            egui::Color32::from_rgb(160, 157, 232),
-                            egui::Color32::from_rgb(70, 90, 170),
-                        ),
-                    ));
+                    ui.label(
+                        egui::RichText::new(&res_text)
+                            .size(28.0)
+                            .color(colors.accent_foreground),
+                    );
                 });
             });
         });
