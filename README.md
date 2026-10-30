@@ -27,7 +27,7 @@ No telemetry. No background processes. It opens instantly and stays out of your 
 
 **Windows:** grab the installer or portable `.exe` from the [releases page](https://github.com/ZFordDev/MathPlus/releases/latest). The installer puts MathPlus in `C:\Program Files\ZFordDev\MathPlus` and adds a Start Menu shortcut. A clean uninstall is included.
 
-**Linux / macOS:** build from source for now (below). Prebuilt binaries may come later.
+**Linux / macOS:** download the executable for your platform from the [releases page](https://github.com/ZFordDev/MathPlus/releases/latest).
 
 ## Build from source
 

@@ -18,12 +18,15 @@ jobs:
           - os: windows-latest
             artifact: windows-artifacts
             bin: target/release/MathPlus.exe
+            platform: windows
           - os: ubuntu-latest
             artifact: linux-artifacts
             bin: target/release/MathPlus
+            platform: linux
           - os: macos-latest
             artifact: macos-artifacts
             bin: target/release/MathPlus
+            platform: macos
 
     steps:
       - name: Checkout repository
@@ -35,11 +38,32 @@ jobs:
       - name: Build (Release)
         run: cargo build --release
 
+      - name: Build Windows installer
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $iscc = Join-Path ${env:ProgramFiles(x86)} "Inno Setup 6\ISCC.exe"
+          & $iscc "/Oinstaller\output" "installer\MathPlus.iss"
+
+      - name: Stage Windows release assets
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force release-assets | Out-Null
+          Copy-Item "${{ matrix.bin }}" "release-assets/MathPlus-windows.exe"
+          Copy-Item "installer/output/MathPlusInstaller.exe" "release-assets/MathPlusInstaller.exe"
+
+      - name: Stage Unix release asset
+        if: runner.os != 'Windows'
+        run: |
+          mkdir -p release-assets
+          cp "${{ matrix.bin }}" "release-assets/MathPlus-${{ matrix.platform }}"
+
       - name: Upload binary
         uses: actions/upload-artifact@v7
         with:
           name: ${{ matrix.artifact }}
-          path: ${{ matrix.bin }}
+          path: release-assets/*
 
   publish_release:
     name: Publish GitHub Release
@@ -52,11 +76,24 @@ jobs:
         uses: actions/download-artifact@v8
         with:
           name: windows-artifacts
-          path: release/
+          path: release/windows/
+
+      - name: Download Linux artifacts
+        uses: actions/download-artifact@v8
+        with:
+          name: linux-artifacts
+          path: release/linux/
+
+      - name: Download macOS artifacts
+        uses: actions/download-artifact@v8
+        with:
+          name: macos-artifacts
+          path: release/macos/
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v3
         with:
           files: release/**
+          generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

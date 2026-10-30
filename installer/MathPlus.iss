@@ -1,6 +1,6 @@
 [Setup]
 AppName=MathPlus
-AppVersion=1.2.3
+AppVersion=1.3.0
 DefaultDirName={pf}\ZFordDev\MathPlus
 DefaultGroupName=ZFordDev
 OutputDir=.
