@@ -1,4 +1,5 @@
 use crate::app::Calculator;
+use crate::logic::EvaluationMode;
 use crate::theme::ThemeMode;
 use eframe::egui;
 
@@ -30,6 +31,21 @@ pub fn render_calculator_ui(
                         ui.selectable_value(&mut calc.theme_mode, ThemeMode::System, "System");
                         ui.selectable_value(&mut calc.theme_mode, ThemeMode::Light, "Light");
                         ui.selectable_value(&mut calc.theme_mode, ThemeMode::Dark, "Dark");
+                    });
+
+                egui::ComboBox::from_id_salt("evaluation_mode")
+                    .selected_text(calc.evaluation_mode.selected_text())
+                    .show_ui(ui, |ui| {
+                        ui.selectable_value(
+                            &mut calc.evaluation_mode,
+                            EvaluationMode::Chained,
+                            "Chained",
+                        );
+                        ui.selectable_value(
+                            &mut calc.evaluation_mode,
+                            EvaluationMode::Standard,
+                            "Standard",
+                        );
                     });
             });
 

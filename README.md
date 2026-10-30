@@ -16,6 +16,7 @@ No telemetry. No background processes. It opens instantly and stays out of your 
 ## Features
 
 - Standard arithmetic, plus a toggleable scientific panel
+- Chained left-to-right evaluation by default, with standard precedence available
 - Calculation history (press `H`)
 - Light, dark, and system themes
 - Keyboard-first input
@@ -52,6 +53,10 @@ The binary lands in `target/release/` (`MathPlus.exe` on Windows).
 | `H` | Open history |
 
 The expression field is editable — click anywhere in it to fix a typo mid-expression.
+
+Use the **Mode** selector to switch between **Chained** evaluation (left to right)
+and **Standard** evaluation (operator precedence). Scientific mode always uses
+standard precedence.
 
 ## Project layout
 

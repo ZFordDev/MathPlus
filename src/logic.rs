@@ -1,7 +1,97 @@
 use meval::eval_str;
 
-pub fn evaluate_expression(input: &str) -> Result<f64, ()> {
-    eval_str(input).map_err(|_| ())
+#[derive(Clone, Copy, PartialEq, Eq, Default)]
+pub enum EvaluationMode {
+    #[default]
+    Chained,
+    Standard,
+}
+
+impl EvaluationMode {
+    pub fn selected_text(self) -> &'static str {
+        match self {
+            Self::Chained => "Chained",
+            Self::Standard => "Standard",
+        }
+    }
+}
+
+pub fn evaluate_expression(input: &str, mode: EvaluationMode) -> Result<f64, ()> {
+    match mode {
+        EvaluationMode::Chained => evaluate_left_to_right(input),
+        EvaluationMode::Standard => eval_str(input).map_err(|_| ()),
+    }
+}
+
+fn evaluate_left_to_right(input: &str) -> Result<f64, ()> {
+    let bytes = input.as_bytes();
+    let mut index = 0;
+    let mut result = None;
+    let mut pending_operator = None;
+
+    // Apply each operator as it appears instead of using standard precedence.
+    while index < bytes.len() {
+        while index < bytes.len() && bytes[index].is_ascii_whitespace() {
+            index += 1;
+        }
+        if index == bytes.len() {
+            break;
+        }
+
+        let number_start = index;
+        if matches!(bytes[index], b'+' | b'-') {
+            index += 1;
+        }
+        let integer_start = index;
+        while index < bytes.len() && bytes[index].is_ascii_digit() {
+            index += 1;
+        }
+        let has_integer_digits = index > integer_start;
+        let mut has_fraction_digits = false;
+        if index < bytes.len() && bytes[index] == b'.' {
+            index += 1;
+            let fraction_start = index;
+            while index < bytes.len() && bytes[index].is_ascii_digit() {
+                index += 1;
+            }
+            has_fraction_digits = index > fraction_start;
+        }
+        if !has_integer_digits && !has_fraction_digits {
+            return Err(());
+        }
+
+        let operand = input[number_start..index].parse::<f64>().map_err(|_| ())?;
+
+        result = Some(match (result, pending_operator) {
+            (None, None) => operand,
+            (Some(current), Some(operator)) => match operator {
+                b'+' => current + operand,
+                b'-' => current - operand,
+                b'*' => current * operand,
+                b'/' => current / operand,
+                _ => return Err(()),
+            },
+            _ => return Err(()),
+        });
+        pending_operator = None;
+
+        while index < bytes.len() && bytes[index].is_ascii_whitespace() {
+            index += 1;
+        }
+        if index < bytes.len() {
+            if !matches!(bytes[index], b'+' | b'-' | b'*' | b'/') {
+                return Err(());
+            }
+            pending_operator = Some(bytes[index]);
+            index += 1;
+        }
+    }
+
+    if pending_operator.is_some() {
+        Err(())
+    } else {
+        result.ok_or(())
+    }
 }
 
 pub fn format_result(result: f64) -> String {

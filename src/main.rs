@@ -32,8 +32,8 @@ fn load_icon() -> egui::IconData {
 fn main() {
     let options = eframe::NativeOptions {
         viewport: egui::ViewportBuilder::default()
-            .with_inner_size([300.0, 580.0])
-            .with_min_inner_size([320.0, 640.0])
+            .with_inner_size([340.0, 700.0])
+            .with_min_inner_size([320.0, 700.0])
             .with_resizable(true)
             .with_icon(load_icon()),
         ..Default::default()
