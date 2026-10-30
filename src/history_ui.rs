@@ -1,5 +1,6 @@
 use crate::history::History;
 use crate::logic::format_history_result;
+use crate::theme::ThemeMode;
 use eframe::egui;
 
 pub enum HistoryAction {
@@ -11,13 +12,10 @@ pub fn show_history_window(
     ctx: &egui::Context,
     history: &History,
     show: &mut bool,
+    theme_mode: ThemeMode,
 ) -> HistoryAction {
     let mut action = HistoryAction::None;
-    let accent_color = if ctx.theme() == egui::Theme::Dark {
-        egui::Color32::LIGHT_BLUE
-    } else {
-        egui::Color32::from_rgb(48, 100, 210)
-    };
+    let accent_color = theme_mode.calculator_colors(ctx).history_accent;
 
     egui::Window::new("Calculation History")
         .open(show)

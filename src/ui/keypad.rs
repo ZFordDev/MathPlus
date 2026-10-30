@@ -10,63 +10,24 @@ const KEYPAD_ROWS: &[&[&str]] = &[
 ];
 
 pub fn render_keypad(calc: &mut Calculator, ctx: &egui::Context, ui: &mut egui::Ui) {
+    let colors = calc.theme_mode.calculator_colors(ctx);
+
     ui.vertical_centered(|ui| {
-        ui.allocate_ui(egui::vec2(260.0, 320.0), |ui| {
+        let keypad_width = ui.available_width().min(480.0);
+        let cell_width = (keypad_width - 30.0) / 4.0;
+        ui.allocate_ui(egui::vec2(keypad_width, 320.0), |ui| {
             egui::Grid::new("calc_grid")
                 .spacing([10.0, 10.0])
-                .min_col_width(55.0)
+                .min_col_width(cell_width)
                 .show(ui, |ui| {
                     for row in KEYPAD_ROWS.iter() {
                         for &label in row.iter() {
                             let (fill, text_color) = match label {
-                                "+" | "-" | "*" | "/" => (
-                                    calc.theme_mode.color(
-                                        ctx,
-                                        egui::Color32::from_rgb(37, 37, 53),
-                                        egui::Color32::from_rgb(205, 210, 250),
-                                    ),
-                                    calc.theme_mode.color(
-                                        ctx,
-                                        egui::Color32::from_rgb(160, 157, 232),
-                                        egui::Color32::from_rgb(35, 45, 75),
-                                    ),
-                                ),
-                                "C" | "CE" => (
-                                    calc.theme_mode.color(
-                                        ctx,
-                                        egui::Color32::from_rgb(46, 28, 28),
-                                        egui::Color32::from_rgb(255, 230, 230),
-                                    ),
-                                    calc.theme_mode.color(
-                                        ctx,
-                                        egui::Color32::from_rgb(232, 128, 128),
-                                        egui::Color32::from_rgb(145, 35, 50),
-                                    ),
-                                ),
-                                "" => (
-                                    calc.theme_mode.color(
-                                        ctx,
-                                        egui::Color32::from_rgb(42, 42, 48),
-                                        egui::Color32::from_rgb(236, 236, 240),
-                                    ),
-                                    calc.theme_mode.color(
-                                        ctx,
-                                        egui::Color32::from_rgb(232, 232, 238),
-                                        egui::Color32::from_rgb(24, 24, 28),
-                                    ),
-                                ),
-                                _ => (
-                                    calc.theme_mode.color(
-                                        ctx,
-                                        egui::Color32::from_rgb(42, 42, 48),
-                                        egui::Color32::from_rgb(236, 236, 240),
-                                    ),
-                                    calc.theme_mode.color(
-                                        ctx,
-                                        egui::Color32::from_rgb(232, 232, 238),
-                                        egui::Color32::from_rgb(24, 24, 28),
-                                    ),
-                                ),
+                                "+" | "-" | "*" | "/" => {
+                                    (colors.operator_background, colors.operator_foreground)
+                                }
+                                "C" | "CE" => (colors.clear_background, colors.clear_foreground),
+                                _ => (colors.key_background, colors.key_foreground),
                             };
 
                             let btn = egui::Button::new(
@@ -76,31 +37,28 @@ pub fn render_keypad(calc: &mut Calculator, ctx: &egui::Context, ui: &mut egui::
                                     .color(text_color),
                             )
                             .fill(fill)
-                            .corner_radius(egui::CornerRadius::same(10))
-                            .stroke(egui::Stroke::new(
-                                0.5,
-                                calc.theme_mode.color(
-                                    ctx,
-                                    egui::Color32::from_rgba_premultiplied(255, 255, 255, 10),
-                                    egui::Color32::from_rgba_premultiplied(0, 0, 0, 15),
-                                ),
-                            ))
-                            .min_size(egui::vec2(55.0, 55.0));
+                            .corner_radius(egui::CornerRadius::same(super::BUTTON_CORNER_RADIUS))
+                            .stroke(egui::Stroke::new(0.5, colors.subtle_border))
+                            .min_size(egui::vec2(cell_width, 55.0));
 
                             if label.is_empty() {
-                                ui.add_sized(egui::vec2(55.0, 55.0), egui::Label::new(""));
-                            } else if ui.add(btn).clicked() {
-                                match label {
-                                    "C" => {
-                                        calc.input.clear();
-                                        calc.result = 0.0;
-                                    }
-                                    "CE" => {
-                                        if clear_current_entry(&mut calc.input) {
+                                ui.add_sized(egui::vec2(cell_width, 55.0), egui::Label::new(""));
+                            } else {
+                                let response = ui.add(btn);
+
+                                if response.clicked() {
+                                    match label {
+                                        "C" => {
+                                            calc.input.clear();
                                             calc.result = 0.0;
                                         }
+                                        "CE" => {
+                                            if clear_current_entry(&mut calc.input) {
+                                                calc.result = 0.0;
+                                            }
+                                        }
+                                        _ => calc.input.push_str(label),
                                     }
-                                    _ => calc.input.push_str(label),
                                 }
                             }
                         }

@@ -2,25 +2,28 @@ use crate::app::Calculator;
 use crate::logic::evaluate_expression;
 use eframe::egui;
 
-pub fn render_actions(calc: &mut Calculator, ctx: &egui::Context, ui: &mut egui::Ui) {
+pub fn render_actions(
+    calc: &mut Calculator,
+    ctx: &egui::Context,
+    ui: &mut egui::Ui,
+    scientific_panel_visible: bool,
+) {
     ui.add_space(15.0);
+    let button_width = ui.available_width().min(480.0);
+    let colors = calc.theme_mode.calculator_colors(ctx);
 
-    let equals_btn = egui::Button::new(egui::RichText::new("=").size(24.0).strong().color(
-        calc.theme_mode.color(
-            ctx,
-            egui::Color32::from_rgb(212, 210, 247),
-            egui::Color32::from_rgb(245, 245, 255),
-        ),
-    ))
-    .fill(calc.theme_mode.color(
-        ctx,
-        egui::Color32::from_rgb(37, 37, 53),
-        egui::Color32::from_rgb(70, 100, 170),
-    ))
-    .corner_radius(egui::CornerRadius::same(12))
-    .min_size(egui::vec2(250.0, 50.0));
+    let equals_btn = egui::Button::new(
+        egui::RichText::new("=")
+            .size(24.0)
+            .strong()
+            .color(colors.equals_foreground),
+    )
+    .fill(colors.equals_background)
+    .corner_radius(egui::CornerRadius::same(super::BUTTON_CORNER_RADIUS))
+    .min_size(egui::vec2(button_width, 50.0));
 
-    if ui.add(equals_btn).clicked() {
+    let equals_response = ui.add(equals_btn);
+    if equals_response.clicked() {
         match evaluate_expression(&calc.input) {
             Ok(val) => {
                 calc.result = val;
@@ -33,22 +36,13 @@ pub fn render_actions(calc: &mut Calculator, ctx: &egui::Context, ui: &mut egui:
     ui.add_space(10.0);
 
     let history_btn = egui::Button::new(egui::RichText::new("History").size(18.0).strong())
-        .fill(calc.theme_mode.color(
-            ctx,
-            egui::Color32::from_rgb(100, 100, 100),
-            egui::Color32::from_rgb(210, 210, 210),
-        ))
-        .stroke(egui::Stroke::new(
-            0.5,
-            calc.theme_mode.color(
-                ctx,
-                egui::Color32::from_rgba_premultiplied(255, 255, 255, 10),
-                egui::Color32::from_rgba_premultiplied(0, 0, 0, 15),
-            ),
-        ))
-        .min_size(egui::vec2(250.0, 35.0));
+        .fill(colors.action_background)
+        .stroke(egui::Stroke::new(0.5, colors.subtle_border))
+        .corner_radius(egui::CornerRadius::same(super::BUTTON_CORNER_RADIUS))
+        .min_size(egui::vec2(button_width, 35.0));
 
-    if ui.add(history_btn).clicked() {
+    let history_response = ui.add(history_btn);
+    if history_response.clicked() {
         calc.show_history = true;
     }
 
@@ -62,29 +56,21 @@ pub fn render_actions(calc: &mut Calculator, ctx: &egui::Context, ui: &mut egui:
 
     let sci_btn = egui::Button::new(egui::RichText::new(sci_label).size(18.0).strong())
         .fill(if calc.scientific_mode {
-            calc.theme_mode.color(
-                ctx,
-                egui::Color32::from_rgb(60, 80, 120),
-                egui::Color32::from_rgb(100, 130, 190),
-            )
+            colors.scientific_active_background
         } else {
-            calc.theme_mode.color(
-                ctx,
-                egui::Color32::from_rgb(100, 100, 100),
-                egui::Color32::from_rgb(210, 210, 210),
-            )
+            colors.action_background
         })
-        .stroke(egui::Stroke::new(
-            0.5,
-            calc.theme_mode.color(
-                ctx,
-                egui::Color32::from_rgba_premultiplied(255, 255, 255, 10),
-                egui::Color32::from_rgba_premultiplied(0, 0, 0, 15),
-            ),
-        ))
-        .min_size(egui::vec2(250.0, 35.0));
+        .stroke(egui::Stroke::new(0.5, colors.subtle_border))
+        .corner_radius(egui::CornerRadius::same(super::BUTTON_CORNER_RADIUS))
+        .min_size(egui::vec2(button_width, 35.0));
+    let sci_response = ui.add(sci_btn);
+    let sci_response = if calc.scientific_mode && !scientific_panel_visible {
+        sci_response.on_hover_text("Widen the window to view the scientific panel.")
+    } else {
+        sci_response
+    };
 
-    if ui.add(sci_btn).clicked() {
+    if sci_response.clicked() {
         calc.scientific_mode = !calc.scientific_mode;
     }
 }

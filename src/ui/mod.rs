@@ -4,6 +4,8 @@ pub mod keypad;
 pub mod layout;
 pub mod scientific;
 
+pub(super) const BUTTON_CORNER_RADIUS: u8 = 18;
+
 pub use actions::render_actions;
 pub use display::render_display;
 pub use keypad::render_keypad;
