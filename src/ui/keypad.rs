@@ -1,4 +1,5 @@
 use crate::app::Calculator;
+use crate::logic::{EvaluationMode, evaluate_expression, format_value};
 use eframe::egui;
 
 const KEYPAD_ROWS: &[&[&str]] = &[
@@ -51,13 +52,44 @@ pub fn render_keypad(calc: &mut Calculator, ctx: &egui::Context, ui: &mut egui::
                                         "C" => {
                                             calc.input.clear();
                                             calc.result = 0.0;
+                                            calc.just_evaluated = false;
                                         }
                                         "CE" => {
                                             if clear_current_entry(&mut calc.input) {
                                                 calc.result = 0.0;
                                             }
+                                            calc.just_evaluated = false;
                                         }
-                                        _ => calc.input.push_str(label),
+                                        "+" | "-" | "*" | "/" => {
+                                            if calc.just_evaluated
+                                                && !calc.scientific_mode
+                                                && calc.evaluation_mode == EvaluationMode::Chained
+                                            {
+                                                calc.input = format_value(calc.result);
+                                            }
+                                            calc.just_evaluated = false;
+                                            if !calc.scientific_mode
+                                                && calc.evaluation_mode == EvaluationMode::Chained
+                                                && let Ok(value) = evaluate_expression(
+                                                    &calc.input,
+                                                    EvaluationMode::Chained,
+                                                )
+                                            {
+                                                calc.result = value;
+                                            }
+                                            calc.input.push_str(label);
+                                        }
+                                        _ => {
+                                            if calc.just_evaluated
+                                                && !calc.scientific_mode
+                                                && calc.evaluation_mode == EvaluationMode::Chained
+                                            {
+                                                calc.input.clear();
+                                                calc.result = 0.0;
+                                            }
+                                            calc.just_evaluated = false;
+                                            calc.input.push_str(label);
+                                        }
                                     }
                                 }
                             }

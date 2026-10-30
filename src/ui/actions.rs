@@ -1,5 +1,5 @@
 use crate::app::Calculator;
-use crate::logic::evaluate_expression;
+use crate::logic::{EvaluationMode, evaluate_expression};
 use eframe::egui;
 
 pub fn render_actions(
@@ -24,12 +24,21 @@ pub fn render_actions(
 
     let equals_response = ui.add(equals_btn);
     if equals_response.clicked() {
-        match evaluate_expression(&calc.input) {
+        let mode = if calc.scientific_mode {
+            EvaluationMode::Standard
+        } else {
+            calc.evaluation_mode
+        };
+        match evaluate_expression(&calc.input, mode) {
             Ok(val) => {
                 calc.result = val;
                 calc.history.add_calculation(calc.input.clone(), val);
+                calc.just_evaluated = true;
             }
-            Err(_) => calc.result = f64::NAN,
+            Err(_) => {
+                calc.result = f64::NAN;
+                calc.just_evaluated = false;
+            }
         }
     }
 

@@ -1,5 +1,6 @@
 use crate::history::History;
 use crate::history_ui::{HistoryAction, show_history_window};
+use crate::logic::EvaluationMode;
 use crate::shortcuts::{filter_events, handle_keyboard_shortcuts};
 use crate::theme::ThemeMode;
 use crate::ui::{render_calculator_ui, render_scientific_panel};
@@ -15,6 +16,8 @@ pub struct Calculator {
     pub copied_at: Option<std::time::Instant>,
     pub scientific_mode: bool,
     pub theme_mode: ThemeMode,
+    pub evaluation_mode: EvaluationMode,
+    pub just_evaluated: bool,
     /// One-shot: focus the expression field on the first frame only.
     pub focus_input: bool,
     /// Set by the display each frame; lets the Copy shortcut prefer a
@@ -32,6 +35,8 @@ impl Default for Calculator {
             copied_at: None,
             scientific_mode: false,
             theme_mode: ThemeMode::default(),
+            evaluation_mode: EvaluationMode::default(),
+            just_evaluated: false,
             focus_input: true,
             field_has_selection: false,
         }
@@ -44,7 +49,7 @@ impl App for Calculator {
 
         // Strip blocked keystrokes before the TextEdit renders, so it never
         // sees characters the calculator handles itself (=, c) or rejects.
-        let pending = filter_events(&ctx);
+        let pending = filter_events(&ctx, self);
 
         let scientific_panel_visible =
             self.scientific_mode && ui.available_width() >= SCIENTIFIC_PANEL_MIN_WINDOW_WIDTH;
