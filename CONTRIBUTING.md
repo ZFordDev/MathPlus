@@ -1,32 +1,28 @@
-# Contributing
+# Contributing to MathPlus
 
-Thanks for helping out. This is a small project, so the rules are small too.
+Found a bug? Have an idea? Want to improve something?
+
+Awesome! Contributions are welcome.
 
 ## Getting started
 
-1. Check [open issues](https://github.com/ZFordDev/MathPlus/issues) so you don't duplicate work.
-2. Fork and create a branch: `feature/thing` or `fix/thing`.
-3. Make your change. Keep PRs focused — one fix or feature per PR.
-4. Make sure `cargo build --release` succeeds.
-5. Open a PR describing what changed and why.
+1. Check the [open issues](https://github.com/ZFordDev/MathPlus/issues).
+2. Fork the repo and make your changes.
+3. Run `cargo build --release` to make sure it builds.
+4. Open a PR explaining what you changed.
 
-## What fits this project
+## Keep it simple
 
-MathPlus is meant to stay tiny, fast, and simple. Before opening a PR for a new feature, consider whether it belongs here:
+MathPlus is supposed to be a small, lightweight calculator.
 
-- **Good fits** — bug fixes, small quality-of-life improvements, better expressions/parsing, platform support, docs, tests.
-- **Probably not** — heavy dependencies, plugin systems, background services, features that turn this into a full scientific suite.
+Bug fixes, performance improvements, and little quality-of-life features are always worth considering.
 
-If you're unsure, open an issue first and ask.
+Massive dependencies, plugin systems, and unnecessary complexity? Probably not.
 
-## Style
+Not sure if your idea fits? Open an issue and let's chat!
 
-Follow the existing code style. Read a neighbouring file before writing a new one — the patterns are consistent.
+## Found a bug?
 
-## Bug reports
+Tell us what happened, what you expected, and which OS you're using. Screenshots are always helpful.
 
-Include your OS, app version, steps to reproduce, and what you expected vs. what happened. Screenshots help.
-
-## Code of Conduct
-
-Be kind and constructive — see [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
+Please follow our [Code of Conduct](CODE_OF_CONDUCT.md).

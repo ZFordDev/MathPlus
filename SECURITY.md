@@ -1,17 +1,20 @@
 # Security Policy
 
-## Reporting a vulnerability
+MathPlus is a calculator. It shouldn't need to know anything about you.
 
-Please don't open a public issue. Instead, use a [private GitHub security advisory](https://github.com/ZFordDev/MathPlus/security/advisories/new) or contact the maintainer directly through GitHub.
+- No accounts or telemetry.
+- No analytics or data collection.
+- Calculations happen locally.
+- No network calls with your calculations.
 
-Include: what the issue is, how to reproduce it, affected version, and what you think the impact is.
+## Found a security issue?
 
-## What to know about MathPlus
+Please don't post it publicly.
 
-- All math is evaluated locally — no network calls with your input.
-- No telemetry, no analytics, no user data collection.
-- The app doesn't read or write your files.
+Report it privately through [GitHub Security Advisories](https://github.com/ZFordDev/MathPlus/security/advisories/new).
 
-## Supported versions
+Include what went wrong, how to reproduce it, and which version you're using.
 
-Fixes land on the latest release. Older versions may not get patches.
+## Updates
+
+Security fixes target the latest release. Older versions may not receive updates.
