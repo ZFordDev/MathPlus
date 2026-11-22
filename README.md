@@ -1,37 +1,58 @@
-[![Downloads](https://img.shields.io/github/downloads/ZFordDev/MathPlus/total?style=flat-square)](https://github.com/ZFordDev/MathPlus/releases)
-![Built with Rust](https://img.shields.io/badge/Built_with-Rust-orange?style=flat-square)
-![Platforms](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS-blue?style=flat-square)
-
 # MathPlus
+### The Simple Calculator
 
-A tiny, fast calculator for Windows, Linux, and macOS, built in Rust with [egui](https://github.com/emilk/egui).
-
-No telemetry. No background processes. It opens instantly and stays out of your way.
+I wanted to learn egui, so naturally I built another calculator.
 
 <p align="center">
   <img src="assets/screenshots/mathplus-light.png" width="45%" />
   <img src="assets/screenshots/mathplus-dark.png" width="45%" />
 </p>
 
-## Features
+## What can it do?
 
-- Standard arithmetic, plus a toggleable scientific panel
-- Chained left-to-right evaluation by default, with standard precedence available
-- Calculation history (press `H`)
-- Light, dark, and system themes
-- Keyboard-first input
-- Copy result to clipboard
-- Small codebase — good for learning `egui`/`eframe`
+Well, it's a calculator! But it has a few tricks:
 
-## Install
+- **Everyday maths**: Add, subtract, multiply, divide. You know the drill.
+- **History**: Forgot what you calculated? Press `H`.
+- **Themes**: Light, dark, or let your system decide.
+- **Keyboard friendly**: Because clicking buttons gets old.
+- **Copy results**: One shortcut and your answer is on the clipboard.
+- **Two calculation modes**: Chained (left to right) or Standard (operator precedence).
 
-**Windows:** grab the installer or portable `.exe` from the [releases page](https://github.com/ZFordDev/MathPlus/releases/latest). The installer puts MathPlus in `C:\Program Files\ZFordDev\MathPlus` and adds a Start Menu shortcut. A clean uninstall is included.
+## Get MathPlus
 
-**Linux / macOS:** download the executable for your platform from the [releases page](https://github.com/ZFordDev/MathPlus/releases/latest).
+Running Windows, Linux, or macOS?
 
-## Build from source
+Grab the latest version from the **[Releases Page](https://github.com/ZFordDev/MathPlus/releases/latest)**.
 
-Requires Rust 1.85+.
+## Keyboard shortcuts
+
+For those who prefer keeping their hands on the keyboard:
+
+| Key | What it does |
+|---|---|
+| `0-9` `.` `+` `-` `*` `/` | Type your maths |
+| `Enter` or `=` | Calculate |
+| `Backspace` | Oops, delete that |
+| `Esc` or `C` | Start over |
+| `Ctrl+C` | Copy the result |
+| `H` | Open history |
+
+**Made a typo?** Click anywhere in the expression field and fix it. No need to start over.
+
+### A note about calculation modes
+
+MathPlus has two ways of doing things:
+
+**Chained:** Calculates from left to right.
+
+**Standard:** Follows normal mathematical operator precedence.
+
+You can switch between them using the **Mode** selector. Scientific mode always uses standard precedence.
+
+## Want to build it yourself?
+
+You'll need ***Rust 1.85+***.
 
 ```bash
 git clone https://github.com/ZFordDev/MathPlus.git
@@ -39,51 +60,18 @@ cd MathPlus
 cargo build --release
 ```
 
-The binary lands in `target/release/` (`MathPlus.exe` on Windows).
+Your freshly built calculator will be waiting in `target/release/`.
 
-## Shortcuts
+## Found a bug? Have an idea?
 
-| Key | Action |
-|---|---|
-| `0–9` `.` `+` `-` `*` `/` | Type an expression |
-| `Enter` or `=` | Evaluate |
-| `Backspace` | Delete previous character |
-| `Esc` or `C` | Clear |
-| `Ctrl+C` | Copy result |
-| `H` | Open history |
+MathPlus started as a learning project, and there's always room to improve.
 
-The expression field is editable — click anywhere in it to fix a typo mid-expression.
+Bug reports, suggestions, and pull requests are welcome!
 
-Use the **Mode** selector to switch between **Chained** evaluation (left to right)
-and **Standard** evaluation (operator precedence). Scientific mode always uses
-standard precedence.
+Check out [CONTRIBUTING.md](CONTRIBUTING.md) if you'd like to help.
 
-## Project layout
-
-```text
-src/
-├── main.rs        # Entry point
-├── app.rs         # App state and update loop
-├── logic.rs       # Expression handling
-├── history.rs     # Calculation history
-├── history_ui.rs  # History window
-├── shortcuts.rs   # Keyboard input
-├── theme.rs       # Light/dark/system themes
-└── ui/            # UI panels (display, keypad, scientific, layout)
-```
-
-## Contributing
-
-Bug reports, ideas, and PRs are welcome - see [CONTRIBUTING.md](CONTRIBUTING.md).
-
-## Security
-
-Report vulnerabilities privately via [GitHub security advisories](https://github.com/ZFordDev/MathPlus/security/advisories/new). See [SECURITY.md](SECURITY.md).
+For security issues, please use [GitHub Security Advisories](https://github.com/ZFordDev/MathPlus/security/advisories/new) rather than opening a public issue. More details in [SECURITY.md](SECURITY.md).
 
 ## License
 
-MIT - see [LICENCE](LICENCE).
-
----
-
-Made by [ZFordDev](https://github.com/ZFordDev). Also check out [SchedPlus](https://github.com/ZFordDev/SchedPlus), a lightweight desktop scheduler.
+As usual its **`MIT`** see [LICENCE](LICENCE) for details.
