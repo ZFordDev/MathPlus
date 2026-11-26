@@ -1,4 +1,4 @@
-use eframe::egui::{self, Theme};
+use eframe::egui::{self, Theme, ThemePreference};
 
 pub struct CalculatorColors {
     pub key_background: egui::Color32,
@@ -46,14 +46,13 @@ impl ThemeMode {
     }
 
     pub fn apply(self, ctx: &egui::Context) {
-        if self != ThemeMode::System {
-            let theme = match self {
-                ThemeMode::Light => Theme::Light,
-                ThemeMode::Dark => Theme::Dark,
-                ThemeMode::System => unreachable!(),
-            };
-            ctx.set_theme(theme);
-        }
+        let preference = match self {
+            ThemeMode::System => ThemePreference::System,
+            ThemeMode::Light => ThemePreference::Light,
+            ThemeMode::Dark => ThemePreference::Dark,
+        };
+        // System needs to hand control back to the OS after a manual choice.
+        ctx.set_theme(preference);
     }
 
     pub fn calculator_colors(self, ctx: &egui::Context) -> CalculatorColors {
@@ -123,6 +122,56 @@ impl ThemeMode {
             brand_foreground: muted_foreground,
             scientific_title: accent_foreground,
             secondary_foreground: muted_foreground,
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn report_system_theme(ctx: &egui::Context, theme: Theme) {
+        let input = egui::RawInput {
+            system_theme: Some(theme),
+            ..Default::default()
+        };
+        let mut output = ctx.run_ui(input, |_| {});
+        // These checks don't draw a window, so there's nothing to upload.
+        output.textures_delta.clear();
+    }
+
+    #[test]
+    fn system_mode_restores_detection_after_an_override() {
+        for (forced_mode, forced_theme, system_theme) in [
+            (ThemeMode::Light, Theme::Light, Theme::Dark),
+            (ThemeMode::Dark, Theme::Dark, Theme::Light),
+        ] {
+            let ctx = egui::Context::default();
+            report_system_theme(&ctx, system_theme);
+            forced_mode.apply(&ctx);
+            report_system_theme(&ctx, system_theme);
+            assert_eq!(ctx.theme(), forced_theme);
+
+            ThemeMode::System.apply(&ctx);
+            report_system_theme(&ctx, system_theme);
+            assert_eq!(ctx.theme(), system_theme);
+            assert_eq!(
+                ThemeMode::System.is_dark_mode(&ctx),
+                system_theme == Theme::Dark
+            );
+        }
+    }
+
+    #[test]
+    fn restored_system_mode_follows_later_theme_changes() {
+        let ctx = egui::Context::default();
+        ThemeMode::Dark.apply(&ctx);
+        ThemeMode::System.apply(&ctx);
+
+        // Let the OS change its mind while the calculator stays open.
+        for theme in [Theme::Light, Theme::Dark, Theme::Light] {
+            report_system_theme(&ctx, theme);
+            assert_eq!(ctx.theme(), theme);
         }
     }
 }
